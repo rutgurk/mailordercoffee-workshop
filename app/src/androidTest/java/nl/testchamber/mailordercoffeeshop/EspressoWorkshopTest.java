@@ -4,11 +4,13 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.rule.ActivityTestRule;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -28,5 +30,13 @@ public class EspressoWorkshopTest {
         onView(withId(R.id.chocolate)).perform(click());
         onView(withId(R.id.review_order_button)).perform(click());
         onView(withId(R.id.beverage_detail_ingredients)).check(matches(withText("Ingredients:\n2 shots of espresso\nChocolate")));
+    }
+
+    @Test
+    public void shouldBeAbleToSelectAnItemInTheRecyclerView() {
+        onView(withId(R.id.use_menu)).perform(click());
+        onView(withId(R.id.beverage_recycler_view))
+                .perform(RecyclerViewActions.actionOnItem(hasDescendant(withText("CON PANNA")), click()));
+        onView(withId(R.id.beverage_detail_title)).check(matches(withText("Con Panna")));
     }
 }
