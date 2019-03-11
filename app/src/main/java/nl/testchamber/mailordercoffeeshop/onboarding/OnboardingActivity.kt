@@ -2,8 +2,8 @@ package nl.testchamber.mailordercoffeeshop.onboarding
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_onboarding.*
 import nl.testchamber.mailordercoffeeshop.R
 import nl.testchamber.mailordercoffeeshop.SharedPreferencesUtil
@@ -12,20 +12,28 @@ class OnboardingActivity : AppCompatActivity() {
 
     private var currentPage = 0
     private val fragments = ArrayList<androidx.fragment.app.Fragment>()
-    private val onboardingSlides = listOf(
-            OnboardingSlide(getString(R.string.onboarding_create_custom_order), R.drawable.onboarding_slide_custom_order),
-            OnboardingSlide(getString(R.string.onboarding_browse_menu), R.drawable.onboarding_slide_recyclerview),
-            OnboardingSlide(getString(R.string.onboarding_order_by_mail), R.drawable.onboarding_slide_orderoverview))
+    private lateinit var onboardingSlides: List<OnboardingSlide>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
+
+        initOnboardingSlidesList()
 
         view_pager.adapter = populateOnboardingAdapter()
         circle_page_indicator.setViewPager(view_pager)
 
         setViewPagerBehaviour()
         setNavigationButtonsBehaviour()
+
+
+    }
+
+    private fun initOnboardingSlidesList() {
+        onboardingSlides = listOf(
+                OnboardingSlide(getString(R.string.onboarding_create_custom_order), R.drawable.onboarding_slide_custom_order),
+                OnboardingSlide(getString(R.string.onboarding_browse_menu), R.drawable.onboarding_slide_recyclerview),
+                OnboardingSlide(getString(R.string.onboarding_order_by_mail), R.drawable.onboarding_slide_orderoverview))
     }
 
     private fun setNavigationButtonsBehaviour() {
