@@ -2,27 +2,34 @@ package nl.testchamber.mailordercoffeeshop;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
 import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.rule.ActivityTestRule;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
+import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.intent.Intents.intended;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasAction;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.core.AllOf.allOf;
 
 public class EspressoWorkshopTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class) {
+    public IntentsTestRule<MainActivity> activityTestRule = new IntentsTestRule<MainActivity>(MainActivity.class) {
         @Override
         public void beforeActivityLaunched() {
             super.beforeActivityLaunched();
@@ -54,5 +61,20 @@ public class EspressoWorkshopTest {
         onView(withId(R.id.beverage_recycler_view))
                 .perform(RecyclerViewActions.actionOnItem(hasDescendant(withText("CON PANNA")), click()));
         onView(withId(R.id.beverage_detail_title)).check(matches(withText("Con Panna")));
+    }
+
+    @Test
+    public void shouldSendAnIntentContainingTheRightOrderName() {
+        onView(withId(R.id.more_espresso)).perform(click(), click());
+        onView(withId(R.id.chocolate)).perform(click());
+        onView(withId(R.id.review_order_button)).perform(click());
+        onView(withId(R.id.name_text_box)).perform(scrollTo(), typeText("My name"));
+        onView(withId(R.id.custom_order_name_box)).perform(scrollTo(), typeText("Custom Order Name"));
+        onView(withId(R.id.mail_order_button)).perform(scrollTo(), click());
+
+        intended(allOf(
+                hasAction(equalTo(Intent.ACTION_SENDTO)),
+                hasExtra(Intent.EXTRA_SUBJECT, "Order: My name - Custom Order Name")));
+
     }
 }
