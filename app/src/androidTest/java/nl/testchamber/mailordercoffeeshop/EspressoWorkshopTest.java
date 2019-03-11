@@ -1,10 +1,15 @@
 package nl.testchamber.mailordercoffeeshop;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
 import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -17,12 +22,23 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class EspressoWorkshopTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class);
+    public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class) {
+        @Override
+        public void beforeActivityLaunched() {
+            super.beforeActivityLaunched();
 
-    @Before
-    public void dismissOnboarding() {
-        onView(withId(R.id.close_button)).perform(click());
-    }
+
+            Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+
+            // Solution one
+            SharedPreferences.Editor editor = context.getSharedPreferences(context.getPackageName(), Activity.MODE_PRIVATE).edit();
+            editor.putBoolean("is_first_launch", false);
+            editor.commit();
+
+            // Alternate Solution
+//            SharedPreferencesUtil.INSTANCE.setIsFirstLaunchToFalse(context);
+        }
+    };
 
     @Test
     public void orderOverViewShouldDisplayIngredients() {
