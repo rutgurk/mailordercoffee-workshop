@@ -149,9 +149,9 @@ It is needed to compile and build our test code.
 1. Open Android Studio and when prompted, select **Do not import settings**, then **OK**:
     ![No Settings](./images/no_settings.png)
 2. Next you may see a prompt for updating, follow that process to return to this page, then select **Next**
-    ![Install One](./images/install_1.png)
+    ![Install One](images/install_1.png)
 3. Select the **Standard** installation, then click **Next**
-    ![Install Two](./images/install_2.png) 
+    ![Install Two](images/install_2.png) 
 <br />
 
 ### Import the Project
@@ -160,10 +160,10 @@ It is needed to compile and build our test code.
 
 1. Open Android Studio
 2. Select **Import project (Gradle, Eclipse ADT, etc.)**:
-    ![Import Project](./images/import_project.png)
+    ![Import Project](images/import_project.png)
 3. When prompted select the root directory of `saucecon19-espresso-workshop`
 4. Android Studio should open and begin downloading the components (via `gradle`):
-    ![Download Gradle Dependenices](./images/downloading_gradle_packages.png)
+    ![Download Gradle Dependenices](images/downloading_gradle_packages.png)
 5. After some time, Android Studio begins to setup the project build. Wait for this completion notice in the console:
-    ![Build Complete](./images/build_complete.png)
+    ![Build Complete](images/build_complete.png)
 <br />
