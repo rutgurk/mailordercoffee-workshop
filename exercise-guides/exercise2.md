@@ -12,22 +12,12 @@
 
 <br />
 
-### Info: Where Do the IDs Come From?
-View Layouts can be created in XML. In the XML layout you have the option to assign IDs to a View. This can come in handy when arranging the Views. For example, you can state that View with ID A should be displayed beneath the View with ID B. You can also use this ID in your code to assign behaviour or properties to a View (such as changing the text for the View with ID A). The IDs that you create are automatically added to the app Resources.
-
-This enables us to use these IDs in the whole project, including our tests.
-That's why we use `R.id.*` in our tests. If you hold the `CMD` button (`Alt` for windows) and click on the ID, you will be taken to the XML layout file where the ID is defined.
-
-Similarly to IDs, it's good practice to add text that's used in an app to the String Resources. These can be accessed by using `R.string.*`. 
-
-You shouldn't use these resources for text verification though, because that means you're using the same text that is used to set the text for a View as your expected value: a test that will never fail.
-
-<br />
-
-##### Espresso Core API Cheat Sheet:
+### Espresso Core API Cheat Sheet:
 
 ![api-cheat-sheet.png](images/api-cheat-sheet.png)
 ###### source: [https://developer.android.com/training/testing/espresso/cheat-sheet](https://developer.android.com/training/testing/espresso/cheat-sheet)
+
+<br />
 
 ### Part One: Find the IDs:
 
