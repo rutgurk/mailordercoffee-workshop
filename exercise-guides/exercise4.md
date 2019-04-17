@@ -10,7 +10,7 @@
 <br />
 
 ### Part One: Override `beforeActivityLaunhed`
-1. Create the following `@Rule` in `EspressoWorkshopTest.java`
+1. Replace or modify the existing TestRule in `EspressoWorkshopTest.java`, so it looks like the following:
     ```
     public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class) {
         @Override
@@ -38,4 +38,13 @@ This `@Override` method will implement any code that we want to edit the `Shared
     
     > Hint: Editing the shared preferences is the same as it is in the app.
     
+<br />
+
+### Part Three: Verify and Test
+1. Save all and hit the play button next to your test method
+2. If everything passes, checkout the next branch to see the full solution
+    ```
+    git checkout solution/solution_exercise_five
+    ```
+
 <br />
