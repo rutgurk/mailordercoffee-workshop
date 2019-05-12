@@ -21,7 +21,7 @@ When the download is finished you should decompress the Zip to a folder of your 
 
 Android Studio is Google's IDE that's made for Android app development. 
  Follow the installation instructions on the Android Studio website: 
-[]https://developer.android.com/studio/install] (https://developer.android.com/studio/install)
+[https://developer.android.com/studio/install] (https://developer.android.com/studio/install)
 
 
 ### Open the Project in Android Studio
@@ -33,10 +33,12 @@ Android Studio is Google's IDE that's made for Android app development.
 5.  Time to see if everything works:  This is what the project structure should look like in Android Studio: 
 ![android-studio-android-project-view.png](./readme-images/android-studio-android-project-view.png)
 
-If it doesn't look like this, there are a few thing you can do. 
+If it doesn't look like this, there are a few thing you can do:
+
 •	Check in the bottom bar of Android Studio if Gradle is still syncing, downloading dependencies etc. If it is, wait a few minutes.
 •	Make sure the project pane is open (click the "1: Project" button on the left side).
 •	Make sure the 'Android' view is selected in the drop down menu at the top.
+
 If all else fails: 
 From the file menu select Invalidate Caches / Restart.. (and invalidate the caches and restart)
 From the Build menu select Clean Project
