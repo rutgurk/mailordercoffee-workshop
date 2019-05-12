@@ -35,14 +35,14 @@ Android Studio is Google's IDE that's made for Android app development.
 
 If it doesn't look like this, there are a few thing you can do:
 
-•	Check in the bottom bar of Android Studio if Gradle is still syncing, downloading dependencies etc. If it is, wait a few minutes.
-•	Make sure the project pane is open (click the "1: Project" button on the left side).
-•	Make sure the 'Android' view is selected in the drop down menu at the top.
+- Check in the bottom bar of Android Studio if Gradle is still syncing, downloading dependencies etc. If it is, wait a few minutes.
+- Make sure the project pane is open (click the "1: Project" button on the left side).
+- Make sure the 'Android' view is selected in the drop down menu at the top.
 
 If all else fails: 
-From the file menu select Invalidate Caches / Restart.. (and invalidate the caches and restart)
-From the Build menu select Clean Project
-From the build menu select Rebuild project
+- From the file menu select Invalidate Caches / Restart.. (and invalidate the caches and restart)
+- From the Build menu select Clean Project
+- From the build menu select Rebuild project
 
 6.  If you haven't already: setup a device or emulator so you can run the app
 7.  Run the app to test if everything was downloaded and imported correctly: Press the 'play' icon in the top right corner of Android Studio, make sure "app" is selected in the drop-down menu.
