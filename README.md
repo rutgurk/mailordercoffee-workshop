@@ -1,6 +1,6 @@
 # mailordercoffee-workshop
 
-This Repo contains the source code for the 'Mail Order Coffeeshop app'
+This Repo contains the source code for the 'Mail Order Coffeeshop app'.
 The MailOrder Coffeeshop app was built for Android App test automation practice.
 My blog (URL) offers free posts and exercises to help you get started with UI Automation using the Espresso framework.
 
