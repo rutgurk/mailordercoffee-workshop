@@ -17,10 +17,12 @@
     <string name="email_address_edit_text_hint">Enter email address</string>
     <string name="custom_order_name_edit_text_hint">Give your custom order a name</string>
     <string name="review_order_button">Review order</string>
+    <string name="review_order_button_content_description">Go to the review screen</string>
     <string name="espresso_shot_counter_text">Espresso shots</string>
     <string name="use_menu_button">Menu</string>
     <string name="create_custom_order_button">Custom Order</string>
     <string name="milk_fat_percentage">Milk fat %</string>
+
 
     <!-- beverage detail -->
     <string name="submit_order_button">Submit order</string>
