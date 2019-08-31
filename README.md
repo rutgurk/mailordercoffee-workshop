@@ -2,17 +2,17 @@
 
 This Repo contains the source code for the 'Mail Order Coffeeshop app'.
 The MailOrder Coffeeshop app was built for Android App test automation practice.
-My blog (URL) offers free posts and exercises to help you get started with UI Automation using the Espresso framework.
+My blog (https://www.testchamber.nl/guidance/espresso-for-beginners-from-black-to-white-box/) offers free posts and exercises to help you get started with UI Automation using the Espresso framework.
 
 ## Setup
 
-In order to run this app you'll need a way to download this project, an IDE, and a Android device or Emulator.
+In order to run this app you will need a way to download this project, an IDE, and a Android device or Emulator.
 Using Android Studio and Git is recommended:
 
 ### Download the project
 
 If you're familiar with Git, then you should know what to do.
-If you aren't familiar with Git you should use the 'Download Zip' option:
+If you aren't familiar with Git you can use the 'Download Zip' option:
 ![download-project.png](./readme-images/download-project.png)
 When the download is finished you should decompress the Zip to a folder of your own choosing, and then you're all set to open the project.
 
@@ -54,7 +54,7 @@ If all else fails:
 1.	In Android Studio select the Tools menu and then 'AVD Manager'.  
 2.	Click the '+ Create Virtual Device' button.
 3.	Select a device from the list, for example Nexus 5X, and click 'Next'
-4.	Select a system image. I'd go with one of the recommended images (Pie, API 28) and click 'Next'
+4.	Select a system image. I would go with one of the recommended images (Pie, API 28) and click 'Next'
 5.	Give the virtual device a name and click 'Finish'
 
 Note: downloading the files for the emulator may take a while. 
