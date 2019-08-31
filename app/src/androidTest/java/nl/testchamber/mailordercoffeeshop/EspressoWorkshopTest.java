@@ -18,9 +18,7 @@ public class EspressoWorkshopTest {
 
     @Test
     public void dismissOnboarding() {
-        onView(withId(R.id.example_id)).perform(click());
-        onView(withId(R.id.another_example_id)).check(matches(withText("Customize your order")));
+        onView(withId(R.id.close_button)).perform(click());
+        onView(withId(R.id.custom_order_title)).check(matches(withText("Customize your order")));
     }
-
 }
-
