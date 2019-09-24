@@ -2,7 +2,7 @@ package nl.testchamber.apiservice
 
 interface ApiService {
 
-    fun getBrews()
+    fun getBrews(apiServiceResponseListener: ApiServiceResponseListener)
 
-    fun getMilkTypes()
+    fun getMilkTypes(apiServiceResponseListener: ApiServiceResponseListener)
 }

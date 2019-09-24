@@ -6,6 +6,7 @@ buildscript {
     ext.anko_version='0.10.8'
     ext.support_version= '1.0.1'
     ext.view_pager_indicator_version='2.4.1'
+    ext.retrofit_version ='2.6.2'
     repositories {
         google()
         jcenter()
