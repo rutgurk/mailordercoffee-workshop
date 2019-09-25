@@ -9,12 +9,12 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 class HttpApiService: ApiService {
 
-    private var retrofit = Retrofit.Builder()
+    private val retrofit = Retrofit.Builder()
             .baseUrl("http://www.mocky.io/v2/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
 
-    val apiService = retrofit.create(RetroFitApiService::class.java)
+    private val apiService = retrofit.create(RetroFitApiService::class.java)
 
     override fun getBrews(apiServiceResponseListener: ApiServiceResponseListener) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
