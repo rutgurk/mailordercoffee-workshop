@@ -10,7 +10,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class HttpApiService: ApiService {
+class HttpApiService : ApiService {
 
     private val retrofit = Retrofit.Builder()
             .baseUrl("http://www.mocky.io/v2/")

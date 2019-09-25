@@ -5,7 +5,6 @@ import kotlinx.coroutines.runBlocking
 import nl.testchamber.apiservice.data.MilkTypeService
 import nl.testchamber.apiservice.interfaces.ApiServiceResponseListener
 import org.junit.Assert.assertEquals
-import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
 import retrofit2.Response
