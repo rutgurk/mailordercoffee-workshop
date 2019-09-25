@@ -1,11 +1,10 @@
 package nl.testchamber.mailordercoffeeshop.orderoverview
 
-import android.app.Application
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
+import nl.testchamber.apiservice.data.BeverageMenuItem
 import nl.testchamber.mailordercoffeeshop.Utils
-import nl.testchamber.mailordercoffeeshop.data.beverage.BeverageMenuItem
 import nl.testchamber.mailordercoffeeshop.order.beveragesmenu.getCupVolumeDrawableResource
 
 class OrderOverviewViewModel(beverageMenuItem: BeverageMenuItem) : ViewModel() {
@@ -35,6 +34,7 @@ class OrderOverviewViewModel(beverageMenuItem: BeverageMenuItem) : ViewModel() {
     fun getCustomOrderName(): String {
         return customOrderNameTextBox.get().toString()
     }
+
     val isCustomOrder: ObservableBoolean
         get() {
             if (!orderName.equals(CUSTOM_DRINK_NAME)) {

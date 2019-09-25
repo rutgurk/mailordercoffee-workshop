@@ -1,12 +1,12 @@
 package nl.testchamber.mailordercoffeeshop.order
 
-import androidx.lifecycle.ViewModelProviders
 import android.content.Context
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import nl.testchamber.mailordercoffeeshop.R
 
 class HeaderFragment : androidx.fragment.app.Fragment() {

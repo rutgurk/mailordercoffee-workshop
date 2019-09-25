@@ -1,12 +1,11 @@
 package nl.testchamber.mailordercoffeeshop.order.beveragesmenu
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
 import nl.testchamber.apiservice.data.BeverageMenuItem
-
 import nl.testchamber.mailordercoffeeshop.R
 import nl.testchamber.mailordercoffeeshop.databinding.FragmentBeverageBinding
 

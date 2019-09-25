@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.fragment_beverage_list.*
-import kotlinx.android.synthetic.main.fragment_beverage_list.view.*
 import nl.testchamber.apiservice.HttpApiService
 import nl.testchamber.apiservice.data.BeverageMenuItem
 import nl.testchamber.apiservice.interfaces.BrewServiceResponseListener
@@ -27,7 +26,6 @@ class MenuFragment : androidx.fragment.app.Fragment() {
     private var columnCount = 1
 
     private var beverageMenuContent: List<BeverageMenuItem> = emptyList()
-    private lateinit var myBeverageRecyclerViewAdapter: MyBeverageRecyclerViewAdapter
     private var listener: OnListFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +41,7 @@ class MenuFragment : androidx.fragment.app.Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         viewModel = ViewModelProviders.of(activity!!).get(OrderViewModel::class.java)
-        val view = inflater.inflate(nl.testchamber.mailordercoffeeshop.R.layout.fragment_beverage_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_beverage_list, container, false)
 
         // Set the myBeverageRecyclerViewAdapter
         if (view is androidx.recyclerview.widget.RecyclerView) {
@@ -52,14 +50,15 @@ class MenuFragment : androidx.fragment.app.Fragment() {
                     columnCount <= 1 -> androidx.recyclerview.widget.LinearLayoutManager(context)
                     else -> androidx.recyclerview.widget.GridLayoutManager(context, columnCount)
                 }
-                myBeverageRecyclerViewAdapter = MyBeverageRecyclerViewAdapter(beverageMenuContent, listener)
-                adapter = myBeverageRecyclerViewAdapter
+                adapter = MyBeverageRecyclerViewAdapter(beverageMenuContent, listener)
             }
         }
 
         HttpApiService().getBrews(object : BrewServiceResponseListener {
             override fun onSuccess(response: Response<List<BeverageMenuItem>>) {
-                updateUI(response.body()!!)
+                if (!response.body().isNullOrEmpty()) {
+                    updateUI(response.body()!!)
+                }
             }
 
             override fun onFailure(message: String) {
@@ -67,7 +66,7 @@ class MenuFragment : androidx.fragment.app.Fragment() {
                         .apply {
                             show()
                         }
-                  }
+            }
         })
         return view
     }
@@ -75,6 +74,7 @@ class MenuFragment : androidx.fragment.app.Fragment() {
     private fun updateUI(users: List<BeverageMenuItem>) {
         beverage_recycler_view.adapter = MyBeverageRecyclerViewAdapter(users, listener)
         beverage_recycler_view.adapter?.notifyDataSetChanged()
+//        progress_bar.visibility = View.GONE
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
