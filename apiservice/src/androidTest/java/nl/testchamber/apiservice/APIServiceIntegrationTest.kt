@@ -6,7 +6,11 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
+import retrofit2.Response
 import retrofit2.awaitResponse
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -16,7 +20,7 @@ class APIServiceIntegrationTest {
 
     @Test
     fun getMilkTypes() {
-        var expectedTypes = listOf<String>("No Milk", "Soy", "Low fat", "Half & half", "Cream", "Custom %")
+        var expectedTypes = listOf("No Milk", "Soy", "Low fat", "Half & half", "Cream", "Custom %")
 
         runBlocking {
             val response = try {
@@ -29,5 +33,23 @@ class APIServiceIntegrationTest {
         }
     }
 
-    //Todo: create test for HttpApiService.getMilkTypes(apiServiceResponseListener: ApiServiceResponseListener)
+    @Test
+    fun getHttpServiceMilkTypes() {
+        var expectedTypes = listOf("No Milk", "Soy", "Low fat", "Half & half", "Cream", "Custom %")
+        val actualTypes = runBlocking {
+            suspendCoroutine<List<String>> { cont ->
+                HttpApiService().getMilkTypes(object : ApiServiceResponseListener {
+                    override fun onSuccess(message: Response<MilkTypeService>) {
+                        cont.resume(message.body()!!.milkTypes?.types)
+                    }
+
+                    override fun onFailure(message: String) {
+                        cont.resumeWithException(Throwable(message))
+                    }
+
+                })
+            }
+        }
+        assertEquals(expectedTypes, actualTypes)
+    }
 }
