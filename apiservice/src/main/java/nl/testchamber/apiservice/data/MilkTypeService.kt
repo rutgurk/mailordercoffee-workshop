@@ -1,4 +1,4 @@
-package nl.testchamber.apiservice
+package nl.testchamber.apiservice.data
 
 data class MilkTypeService(var milkTypes: MilkTypes)
 

@@ -1,5 +1,6 @@
-package nl.testchamber.apiservice
+package nl.testchamber.apiservice.interfaces
 
+import nl.testchamber.apiservice.data.MilkTypeService
 import retrofit2.Call
 import retrofit2.http.GET
 

@@ -1,6 +1,9 @@
 package nl.testchamber.apiservice
 
-import android.util.Log
+import nl.testchamber.apiservice.data.MilkTypeService
+import nl.testchamber.apiservice.interfaces.ApiService
+import nl.testchamber.apiservice.interfaces.ApiServiceResponseListener
+import nl.testchamber.apiservice.interfaces.RetroFitApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,15 +24,12 @@ class HttpApiService: ApiService {
     }
 
     override fun getMilkTypes(apiServiceResponseListener: ApiServiceResponseListener) {
-        Log.d("TEST", "now about to start call")
         apiService.getMilkTypes().enqueue(object : Callback<MilkTypeService> {
             override fun onFailure(call: Call<MilkTypeService>?, t: Throwable?) {
-                Log.d("TEST", "Failed call")
                 apiServiceResponseListener.onFailure(t?.message!!)
             }
 
             override fun onResponse(call: Call<MilkTypeService>?, response: Response<MilkTypeService>?) {
-                Log.d("TEST", "Successful call")
                 apiServiceResponseListener.onSuccess(response!!)
             }
         })
