@@ -31,7 +31,7 @@ class HeaderFragment : androidx.fragment.app.Fragment() {
         return mapBinding.root
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnHeaderSelected) {
             headerListeners = context

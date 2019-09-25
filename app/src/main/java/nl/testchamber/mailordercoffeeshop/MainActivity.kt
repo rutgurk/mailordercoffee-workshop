@@ -3,8 +3,8 @@ package nl.testchamber.mailordercoffeeshop
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import nl.testchamber.apiservice.data.BeverageMenuItem
 import nl.testchamber.mailordercoffeeshop.order.beveragesmenu.MenuFragment
-import nl.testchamber.mailordercoffeeshop.data.beverage.BeverageMenuItem
 import nl.testchamber.mailordercoffeeshop.order.customorder.CustomOrderFragment
 import nl.testchamber.mailordercoffeeshop.onboarding.OnboardingActivity
 import nl.testchamber.mailordercoffeeshop.order.HeaderFragment

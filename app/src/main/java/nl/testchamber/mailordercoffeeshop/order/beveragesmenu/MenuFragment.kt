@@ -5,10 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
+import kotlinx.android.synthetic.main.fragment_beverage_list.*
+import kotlinx.android.synthetic.main.fragment_beverage_list.view.*
+import nl.testchamber.apiservice.HttpApiService
+import nl.testchamber.apiservice.data.BeverageMenuItem
+import nl.testchamber.apiservice.interfaces.BrewServiceResponseListener
 import nl.testchamber.mailordercoffeeshop.R
-import nl.testchamber.mailordercoffeeshop.data.beverage.BeverageMenuItem
 import nl.testchamber.mailordercoffeeshop.order.OrderViewModel
+import retrofit2.Response
 
 
 /**
@@ -20,6 +26,8 @@ class MenuFragment : androidx.fragment.app.Fragment() {
 
     private var columnCount = 1
 
+    private var beverageMenuContent: List<BeverageMenuItem> = emptyList()
+    private lateinit var myBeverageRecyclerViewAdapter: MyBeverageRecyclerViewAdapter
     private var listener: OnListFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,19 +43,38 @@ class MenuFragment : androidx.fragment.app.Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         viewModel = ViewModelProviders.of(activity!!).get(OrderViewModel::class.java)
-        val view = inflater.inflate(R.layout.fragment_beverage_list, container, false)
+        val view = inflater.inflate(nl.testchamber.mailordercoffeeshop.R.layout.fragment_beverage_list, container, false)
 
-        // Set the adapter
+        // Set the myBeverageRecyclerViewAdapter
         if (view is androidx.recyclerview.widget.RecyclerView) {
             with(view) {
                 layoutManager = when {
                     columnCount <= 1 -> androidx.recyclerview.widget.LinearLayoutManager(context)
                     else -> androidx.recyclerview.widget.GridLayoutManager(context, columnCount)
                 }
-                adapter = MyBeverageRecyclerViewAdapter(BeveragesMenuContent.ITEMS, listener)
+                myBeverageRecyclerViewAdapter = MyBeverageRecyclerViewAdapter(beverageMenuContent, listener)
+                adapter = myBeverageRecyclerViewAdapter
             }
         }
+
+        HttpApiService().getBrews(object : BrewServiceResponseListener {
+            override fun onSuccess(response: Response<List<BeverageMenuItem>>) {
+                updateUI(response.body()!!)
+            }
+
+            override fun onFailure(message: String) {
+                Toast.makeText(activity?.applicationContext, "Loading of menu failed: $message", Toast.LENGTH_LONG)
+                        .apply {
+                            show()
+                        }
+                  }
+        })
         return view
+    }
+
+    private fun updateUI(users: List<BeverageMenuItem>) {
+        beverage_recycler_view.adapter = MyBeverageRecyclerViewAdapter(users, listener)
+        beverage_recycler_view.adapter?.notifyDataSetChanged()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

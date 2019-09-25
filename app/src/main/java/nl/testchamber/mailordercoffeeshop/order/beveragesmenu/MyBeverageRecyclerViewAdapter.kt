@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import nl.testchamber.apiservice.data.BeverageMenuItem
 
 import nl.testchamber.mailordercoffeeshop.R
-import nl.testchamber.mailordercoffeeshop.data.beverage.BeverageMenuItem
 import nl.testchamber.mailordercoffeeshop.databinding.FragmentBeverageBinding
 
 /**

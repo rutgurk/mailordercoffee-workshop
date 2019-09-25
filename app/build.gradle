@@ -34,6 +34,7 @@ android {
 
 
 dependencies {
+    implementation project(':apiservice')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "androidx.appcompat:appcompat:1.0.2"
     implementation "androidx.media:media:$support_version"
@@ -47,6 +48,7 @@ dependencies {
     implementation "com.github.JakeWharton:ViewPagerIndicator:$view_pager_indicator_version"
     implementation "android.arch.lifecycle:extensions:1.1.1"
     implementation "android.arch.lifecycle:viewmodel:1.1.1"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:rules:1.1.2-alpha01'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
