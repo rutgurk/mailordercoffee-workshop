@@ -3,14 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<TextView
+    android:id="@+id/error_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/lightGray"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    android:textSize="18dp"
+    android:text="Uhoh,\nlooks like we couldn't find the menu\nPlease try again later "
+    android:visibility="gone"
+    android:padding="24dp"
+    android:translationZ="2dp"
+    />
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-
         android:id="@+id/beverage_recycler_view"
         android:name="com.example.prestashopwebview.recycle.BeverageFragment"
         android:layout_width="match_parent"

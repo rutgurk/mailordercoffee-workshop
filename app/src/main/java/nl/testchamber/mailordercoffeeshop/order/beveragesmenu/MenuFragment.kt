@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
@@ -70,6 +71,7 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
         HttpApiService().getBrews(object : BrewServiceResponseListener {
             override fun onSuccess(response: Response<List<BeverageMenuItem>>) {
                 if (!response.body().isNullOrEmpty()) {
+                    find<TextView>(R.id.error_view).visibility = View.GONE
                     with(recyclerview.adapter as MyBeverageRecyclerViewAdapter) {
                         clear()
                         addAll(response.body()!!)
@@ -79,10 +81,14 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
             }
 
             override fun onFailure(message: String) {
-                Toast.makeText(activity?.applicationContext, "Loading of menu failed: $message", Toast.LENGTH_LONG)
-                        .apply {
-                            show()
-                        }
+                if (recyclerview.adapter?.itemCount == 0) {
+                    find<TextView>(R.id.error_view).visibility = View.VISIBLE
+                } else {
+                    Toast.makeText(activity?.applicationContext, "Loading of menu failed: $message", Toast.LENGTH_LONG)
+                            .apply {
+                                show()
+                            }
+                }
                 swipeContainer.isRefreshing = false
             }
         })
