@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
-import kotlinx.android.synthetic.main.fragment_beverage_list.*
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import nl.testchamber.apiservice.HttpApiService
 import nl.testchamber.apiservice.data.BeverageMenuItem
 import nl.testchamber.apiservice.interfaces.BrewServiceResponseListener
 import nl.testchamber.mailordercoffeeshop.R
+import nl.testchamber.mailordercoffeeshop.Utils
 import nl.testchamber.mailordercoffeeshop.order.OrderViewModel
+import org.jetbrains.anko.support.v4.find
 import retrofit2.Response
 
 
@@ -21,11 +24,15 @@ import retrofit2.Response
  * Activities containing this fragment MUST implement the
  * [MenuFragment.OnListFragmentInteractionListener] interface.
  */
-class MenuFragment : androidx.fragment.app.Fragment() {
+class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefreshListener {
+    override fun onRefresh() {
+        initDataset()
+    }
 
     private var columnCount = 1
-
-    private var beverageMenuContent: List<BeverageMenuItem> = emptyList()
+    private lateinit var swipeContainer: SwipeRefreshLayout
+    private lateinit var recyclerview: RecyclerView
+    private var beverageMenuContent = mutableListOf<BeverageMenuItem>()
     private var listener: OnListFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,20 +51,30 @@ class MenuFragment : androidx.fragment.app.Fragment() {
         val view = inflater.inflate(R.layout.fragment_beverage_list, container, false)
 
         // Set the myBeverageRecyclerViewAdapter
-        if (view is androidx.recyclerview.widget.RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> androidx.recyclerview.widget.LinearLayoutManager(context)
-                    else -> androidx.recyclerview.widget.GridLayoutManager(context, columnCount)
-                }
-                adapter = MyBeverageRecyclerViewAdapter(beverageMenuContent, listener)
+        recyclerview = view.findViewById(R.id.beverage_recycler_view)
+        with(recyclerview) {
+            layoutManager = when {
+                columnCount <= 1 -> androidx.recyclerview.widget.LinearLayoutManager(context)
+                else -> androidx.recyclerview.widget.GridLayoutManager(context, columnCount)
             }
+            adapter = MyBeverageRecyclerViewAdapter(beverageMenuContent, listener)
         }
+        swipeContainer = view.findViewById(R.id.swipe)
+        swipeContainer.setOnRefreshListener(this)
+        swipeContainer.isRefreshing = true
+        initDataset()
+        return view
+    }
 
+    private fun initDataset() {
         HttpApiService().getBrews(object : BrewServiceResponseListener {
             override fun onSuccess(response: Response<List<BeverageMenuItem>>) {
                 if (!response.body().isNullOrEmpty()) {
-                    updateUI(response.body()!!)
+                    with(recyclerview.adapter as MyBeverageRecyclerViewAdapter) {
+                        clear()
+                        addAll(response.body()!!)
+                        swipeContainer.isRefreshing = false
+                    }
                 }
             }
 
@@ -66,15 +83,9 @@ class MenuFragment : androidx.fragment.app.Fragment() {
                         .apply {
                             show()
                         }
+                swipeContainer.isRefreshing = false
             }
         })
-        return view
-    }
-
-    private fun updateUI(users: List<BeverageMenuItem>) {
-        beverage_recycler_view.adapter = MyBeverageRecyclerViewAdapter(users, listener)
-        beverage_recycler_view.adapter?.notifyDataSetChanged()
-//        progress_bar.visibility = View.GONE
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
