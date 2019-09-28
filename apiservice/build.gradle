@@ -3,17 +3,20 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 28
+        minSdkVersion 21
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
+        // The following argument makes the Android Test Orchestrator run its
+        // "pm clear" command after each test invocation. This command ensures
+        // that the app's state is completely cleared between tests.
+        testInstrumentationRunnerArguments clearPackageData: 'true'
     }
 
     buildTypes {
@@ -22,7 +25,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
+    }
 
+    flavorDimensions "version"
+    productFlavors {
+        localdata {
+            dimension "version"
+            versionNameSuffix "-localdata"
+        }
+        retrofitdata {
+            dimension "version"
+            versionNameSuffix "-retrofitdata"
+        }
+    }
 }
 
 dependencies {
@@ -38,6 +55,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation 'com.squareup.retrofit2:converter-moshi:2.6.2'
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.1")
+    androidTestUtil 'androidx.test:orchestrator:1.2.0'
 }
 repositories {
     mavenCentral()
