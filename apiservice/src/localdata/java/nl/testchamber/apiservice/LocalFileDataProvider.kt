@@ -2,9 +2,6 @@ package nl.testchamber.apiservice
 
 import android.content.Context
 import android.util.Log
-import nl.testchamber.mailordercoffeeshop.api.generic.ApiRequest
-import nl.testchamber.mailordercoffeeshop.api.generic.JsonResponse
-import nl.testchamber.mailordercoffeeshop.api.generic.Method
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
@@ -28,7 +25,12 @@ class LocalFileDataProvider(private val context: Context) : DataProvider {
 
     protected fun buildAndPassResponse(body: String, listener: DataProviderListener, code: Int) {
         val response = JsonResponse(code, HashMap<String, String>(), body)
-        listener.onSuccess(response)
+        if (code == 200) {
+            listener.onSuccess(response)
+        } else {
+            listener.onFailure(response)
+        }
+
     }
 
     @Throws(IOException::class)
