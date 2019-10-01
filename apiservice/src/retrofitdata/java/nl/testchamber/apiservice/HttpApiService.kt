@@ -1,5 +1,6 @@
 package nl.testchamber.apiservice
 
+import android.content.Context
 import nl.testchamber.apiservice.data.BeverageMenuItem
 import nl.testchamber.apiservice.data.MilkTypeService
 import nl.testchamber.apiservice.interfaces.ApiService
@@ -13,7 +14,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 
-class HttpApiService : ApiService {
+class HttpApiService(private val context: Context) : ApiService {
 
     private val retrofit = Retrofit.Builder()
             .baseUrl("http://www.mocky.io/v2/")
@@ -29,7 +30,7 @@ class HttpApiService : ApiService {
             }
 
             override fun onResponse(call: Call<List<BeverageMenuItem>>, response: Response<List<BeverageMenuItem>>) {
-                apiServiceResponseListener.onSuccess(response!!)
+                apiServiceResponseListener.onSuccess(response.body()!!)
             }
         })
     }

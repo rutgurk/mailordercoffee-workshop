@@ -10,14 +10,13 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import kotlinx.android.synthetic.main.fragment_beverage_list.*
 import nl.testchamber.apiservice.HttpApiService
 import nl.testchamber.apiservice.data.BeverageMenuItem
 import nl.testchamber.apiservice.interfaces.BrewServiceResponseListener
 import nl.testchamber.mailordercoffeeshop.R
-import nl.testchamber.mailordercoffeeshop.Utils
 import nl.testchamber.mailordercoffeeshop.order.OrderViewModel
 import org.jetbrains.anko.support.v4.find
-import retrofit2.Response
 
 
 /**
@@ -68,13 +67,13 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
     }
 
     private fun initDataset() {
-        HttpApiService().getBrews(object : BrewServiceResponseListener {
-            override fun onSuccess(response: Response<List<BeverageMenuItem>>) {
-                if (!response.body().isNullOrEmpty()) {
-                    find<TextView>(R.id.error_view).visibility = View.GONE
+        HttpApiService(context!!).getBrews(object : BrewServiceResponseListener {
+            override fun onSuccess(response: List<BeverageMenuItem>) {
+                if (!response.isNullOrEmpty()) {
+               //     error_view.visibility = View.GONE
                     with(recyclerview.adapter as MyBeverageRecyclerViewAdapter) {
                         clear()
-                        addAll(response.body()!!)
+                        addAll(response)
                         swipeContainer.isRefreshing = false
                     }
                 }

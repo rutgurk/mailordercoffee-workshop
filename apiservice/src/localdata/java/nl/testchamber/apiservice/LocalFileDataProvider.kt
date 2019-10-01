@@ -13,7 +13,7 @@ class LocalFileDataProvider(private val context: Context) : DataProvider {
     override fun execute(request: ApiRequest, listener: DataProviderListener) {
         if (request.method.equals(Method.GET)) {
             try {
-                this.buildAndPassResponse(this.readFile(request.uri.getPath()), listener, 200)
+                this.buildAndPassResponse(this.readFile(request.method.toString()+request.uri.getPath()), listener, 200)
             } catch (e: IOException) {
                 this.buildAndPassResponse("CANNOT PARSE FILE", listener, 1)
                 Log.d(LOGTAG, "Asset cannot be read or found")
