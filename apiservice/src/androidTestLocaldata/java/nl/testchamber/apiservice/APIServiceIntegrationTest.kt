@@ -28,9 +28,9 @@ class APIServiceIntegrationTest {
         var expectedTypes = listOf("No Milk", "Soy", "Low fat", "Half & half", "Cream", "Custom %")
         val actualTypes = runBlocking {
             suspendCoroutine<List<String>> { cont ->
-                HttpApiService(InstrumentationRegistry.getInstrumentation().context).getMilkTypes(object : MilkTypeServiceResponseListener {
-                    override fun onSuccess(response: Response<MilkTypeService>) {
-                        cont.resume(response.body()!!.milkTypes.types)
+                HttpApiService().getMilkTypes(object : MilkTypeServiceResponseListener {
+                    override fun onSuccess(response: MilkTypeService) {
+                        cont.resume(response.milkTypes.types)
                     }
 
                     override fun onFailure(message: String) {
@@ -47,7 +47,7 @@ class APIServiceIntegrationTest {
         var expectedTypes = BeveragesMenuContent.ITEMS
         val actualTypes = runBlocking {
             suspendCoroutine<List<BeverageMenuItem>> { cont ->
-                HttpApiService(InstrumentationRegistry.getInstrumentation().context).getBrews(object : BrewServiceResponseListener {
+                HttpApiService().getBrews(object : BrewServiceResponseListener {
                     override fun onSuccess(response: List<BeverageMenuItem>) {
                         cont.resume(response)
                     }

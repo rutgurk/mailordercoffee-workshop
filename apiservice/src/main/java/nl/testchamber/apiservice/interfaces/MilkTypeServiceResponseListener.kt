@@ -5,7 +5,7 @@ import retrofit2.Response
 
 interface MilkTypeServiceResponseListener {
 
-    fun onSuccess(response: Response<MilkTypeService>)
+    fun onSuccess(response: MilkTypeService)
 
     fun onFailure(message: String)
 }

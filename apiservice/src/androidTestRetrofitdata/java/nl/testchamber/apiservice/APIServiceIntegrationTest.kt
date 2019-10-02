@@ -28,8 +28,8 @@ class APIServiceIntegrationTest {
         val actualTypes = runBlocking {
             suspendCoroutine<List<String>> { cont ->
                 HttpApiService().getMilkTypes(object : MilkTypeServiceResponseListener {
-                    override fun onSuccess(response: Response<MilkTypeService>) {
-                        cont.resume(response.body()!!.milkTypes.types)
+                    override fun onSuccess(response: MilkTypeService) {
+                        cont.resume(response.milkTypes.types)
                     }
 
                     override fun onFailure(message: String) {

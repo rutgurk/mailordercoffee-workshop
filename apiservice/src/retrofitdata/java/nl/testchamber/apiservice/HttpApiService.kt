@@ -41,7 +41,7 @@ class HttpApiService: ApiService {
             }
 
             override fun onResponse(call: Call<MilkTypeService>, response: Response<MilkTypeService>?) {
-                milkTypeServiceResponseListener.onSuccess(response!!)
+                milkTypeServiceResponseListener.onSuccess(response?.body()!!)
             }
         })
     }
