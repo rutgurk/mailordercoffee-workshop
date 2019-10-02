@@ -2,6 +2,7 @@ package nl.testchamber.apiservice.data
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.squareup.moshi.JsonClass
 
 data class BeverageMenuItem(val name: String, val volume: Int, val ingredients: List<Ingredient>, val url: String) : Parcelable {
     constructor(parcel: Parcel) : this(

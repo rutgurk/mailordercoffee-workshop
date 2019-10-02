@@ -1,4 +1,4 @@
-package nl.testchamber.apiservice
+package nl.testchamber.apiservice.data
 
 /**
  * Created by rutger on 09/02/2018.

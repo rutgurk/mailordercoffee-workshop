@@ -1,4 +1,4 @@
-package nl.testchamber.apiservice
+package nl.testchamber.apiservice.data
 
 import java.net.URI
 

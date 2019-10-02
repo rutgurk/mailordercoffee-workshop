@@ -1,4 +1,6 @@
-package nl.testchamber.apiservice
+package nl.testchamber.apiservice.interfaces
+
+import nl.testchamber.apiservice.data.JsonResponse
 
 interface DataProviderListener {
     fun onSuccess(response: JsonResponse)

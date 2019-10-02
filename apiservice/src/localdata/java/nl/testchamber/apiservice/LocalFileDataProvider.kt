@@ -2,6 +2,10 @@ package nl.testchamber.apiservice
 
 import android.content.Context
 import android.util.Log
+import nl.testchamber.apiservice.data.ApiRequest
+import nl.testchamber.apiservice.data.JsonResponse
+import nl.testchamber.apiservice.interfaces.DataProvider
+import nl.testchamber.apiservice.interfaces.DataProviderListener
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
