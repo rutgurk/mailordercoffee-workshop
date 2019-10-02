@@ -2,6 +2,6 @@
     package="nl.testchamber.apiservice">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:usesCleartextTraffic="true"
+        android:name="nl.testchamber.apiservice.GlobalApplication"
         />
 </manifest>

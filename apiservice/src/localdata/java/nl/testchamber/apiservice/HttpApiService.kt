@@ -12,21 +12,27 @@ import nl.testchamber.apiservice.interfaces.DataProviderListener
 import nl.testchamber.apiservice.interfaces.MilkTypeServiceResponseListener
 import java.net.URI
 
-class HttpApiService(private val context: Context) : ApiService {
+class HttpApiService : ApiService {
+
     override fun getBrews(apiServiceResponseListener: BrewServiceResponseListener) {
         val apiRequest = ApiRequest(uri = URI("http://www.mocky.io/v2/5d8baaad3500006200d47193"))
+        val context = GlobalApplication.appContext
+        if (context != null) {
+            LocalFileDataProvider(context).execute(apiRequest, object : DataProviderListener {
+                override fun onSuccess(response: JsonResponse) {
+                    val parsedResponse = parseJsonResponseToList(response, BeverageMenuItem::class.java)
+                            ?: emptyList()
+                    apiServiceResponseListener.onSuccess(parsedResponse)
+                }
 
-        LocalFileDataProvider(context).execute(apiRequest, object : DataProviderListener {
-            override fun onSuccess(response: JsonResponse) {
-                val parsedResponse = parseJsonResponseToList(response, BeverageMenuItem::class.java) ?: emptyList()
-                apiServiceResponseListener.onSuccess(parsedResponse)
-            }
+                override fun onFailure(response: JsonResponse) {
 
-            override fun onFailure(response: JsonResponse) {
+                }
 
-            }
-
-        })
+            })
+        } else {
+            apiServiceResponseListener.onFailure("")
+        }
     }
 
     override fun getMilkTypes(milkTypeServiceResponseListener: MilkTypeServiceResponseListener) {
