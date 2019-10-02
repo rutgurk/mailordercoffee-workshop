@@ -47,8 +47,8 @@ class APIServiceIntegrationTest {
         val actualTypes = runBlocking {
             suspendCoroutine<List<BeverageMenuItem>> { cont ->
                 HttpApiService().getBrews(object : BrewServiceResponseListener {
-                    override fun onSuccess(response: Response<List<BeverageMenuItem>>) {
-                        cont.resume(response.body()!!)
+                    override fun onSuccess(response: List<BeverageMenuItem>) {
+                        cont.resume(response)
                     }
 
                     override fun onFailure(message: String) {

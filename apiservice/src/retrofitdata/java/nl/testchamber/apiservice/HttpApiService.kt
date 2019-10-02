@@ -1,6 +1,5 @@
 package nl.testchamber.apiservice
 
-import android.content.Context
 import nl.testchamber.apiservice.data.BeverageMenuItem
 import nl.testchamber.apiservice.data.MilkTypeService
 import nl.testchamber.apiservice.interfaces.ApiService
@@ -14,7 +13,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 
-class HttpApiService(private val context: Context) : ApiService {
+class HttpApiService: ApiService {
 
     private val retrofit = Retrofit.Builder()
             .baseUrl("http://www.mocky.io/v2/")

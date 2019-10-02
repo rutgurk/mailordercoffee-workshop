@@ -1,5 +1,6 @@
 package nl.testchamber.apiservice
 
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import kotlinx.coroutines.runBlocking
 import nl.testchamber.apiservice.data.BeverageMenuItem
@@ -27,7 +28,7 @@ class APIServiceIntegrationTest {
         var expectedTypes = listOf("No Milk", "Soy", "Low fat", "Half & half", "Cream", "Custom %")
         val actualTypes = runBlocking {
             suspendCoroutine<List<String>> { cont ->
-                HttpApiService().getMilkTypes(object : MilkTypeServiceResponseListener {
+                HttpApiService(InstrumentationRegistry.getInstrumentation().context).getMilkTypes(object : MilkTypeServiceResponseListener {
                     override fun onSuccess(response: Response<MilkTypeService>) {
                         cont.resume(response.body()!!.milkTypes.types)
                     }
@@ -46,9 +47,9 @@ class APIServiceIntegrationTest {
         var expectedTypes = BeveragesMenuContent.ITEMS
         val actualTypes = runBlocking {
             suspendCoroutine<List<BeverageMenuItem>> { cont ->
-                HttpApiService().getBrews(object : BrewServiceResponseListener {
-                    override fun onSuccess(response: Response<List<BeverageMenuItem>>) {
-                        cont.resume(response.body()!!)
+                HttpApiService(InstrumentationRegistry.getInstrumentation().context).getBrews(object : BrewServiceResponseListener {
+                    override fun onSuccess(response: List<BeverageMenuItem>) {
+                        cont.resume(response)
                     }
 
                     override fun onFailure(message: String) {

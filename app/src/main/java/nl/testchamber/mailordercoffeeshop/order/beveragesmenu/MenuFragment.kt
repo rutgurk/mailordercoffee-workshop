@@ -13,6 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.android.synthetic.main.fragment_beverage_list.*
 import nl.testchamber.apiservice.HttpApiService
 import nl.testchamber.apiservice.data.BeverageMenuItem
+import nl.testchamber.apiservice.interfaces.ApiService
 import nl.testchamber.apiservice.interfaces.BrewServiceResponseListener
 import nl.testchamber.mailordercoffeeshop.R
 import nl.testchamber.mailordercoffeeshop.order.OrderViewModel
@@ -34,10 +35,11 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
     private lateinit var recyclerview: RecyclerView
     private var beverageMenuContent = mutableListOf<BeverageMenuItem>()
     private var listener: OnListFragmentInteractionListener? = null
+    private lateinit var apiService: ApiService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        apiService = HttpApiService()
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
@@ -62,15 +64,15 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
         swipeContainer = view.findViewById(R.id.swipe)
         swipeContainer.setOnRefreshListener(this)
         swipeContainer.isRefreshing = true
-        initDataset()
+
         return view
     }
 
     private fun initDataset() {
-        HttpApiService(context!!).getBrews(object : BrewServiceResponseListener {
+        apiService.getBrews(object : BrewServiceResponseListener {
             override fun onSuccess(response: List<BeverageMenuItem>) {
                 if (!response.isNullOrEmpty()) {
-               //     error_view.visibility = View.GONE
+                    error_view.visibility = View.GONE
                     with(recyclerview.adapter as MyBeverageRecyclerViewAdapter) {
                         clear()
                         addAll(response)
@@ -81,7 +83,7 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
 
             override fun onFailure(message: String) {
                 if (recyclerview.adapter?.itemCount == 0) {
-                    find<TextView>(R.id.error_view).visibility = View.VISIBLE
+                    error_view.visibility = View.VISIBLE
                 } else {
                     Toast.makeText(activity?.applicationContext, "Loading of menu failed: $message", Toast.LENGTH_LONG)
                             .apply {
@@ -96,6 +98,7 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.isMenuFragmentActive.set(true)
+        initDataset()
     }
 
     override fun onAttach(context: Context) {
