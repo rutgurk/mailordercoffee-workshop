@@ -35,7 +35,6 @@ public class EspressoWorkshopTest {
         public void beforeActivityLaunched() {
             super.beforeActivityLaunched();
 
-
             Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
             // Solution one

@@ -54,8 +54,9 @@ android {
 
     variantFilter { variant ->
         def names = variant.flavors*.name
+        def types = variant.buildType.name
         // To check for a certain build type, use variant.buildType.name == "<buildType>"
-        if (names.contains("retrofitdata") && names.contains("local")) {
+        if (names.contains("retrofitdata") && names.contains("local") || types.contains("release")) {
             // Gradle ignores any variants that satisfy the conditions above.
             setIgnore(true)
         }
