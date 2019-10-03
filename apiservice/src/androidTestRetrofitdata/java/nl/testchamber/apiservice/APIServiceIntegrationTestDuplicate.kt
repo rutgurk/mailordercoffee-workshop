@@ -1,6 +1,5 @@
 package nl.testchamber.apiservice
 
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import kotlinx.coroutines.runBlocking
 import nl.testchamber.apiservice.data.BeverageMenuItem
@@ -11,7 +10,6 @@ import nl.testchamber.apiservice.interfaces.BrewServiceResponseListener
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-import retrofit2.Response
 import java.util.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -21,7 +19,7 @@ import kotlin.coroutines.suspendCoroutine
  * Instrumented test, which will execute on an Android device.
  */
 @RunWith(AndroidJUnit4::class)
-class APIServiceIntegrationTest {
+class APIServiceIntegrationTestDuplicate {
 
     @Test
     fun getHttpServiceMilkTypes() {

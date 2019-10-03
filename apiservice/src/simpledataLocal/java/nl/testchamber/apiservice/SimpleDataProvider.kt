@@ -12,7 +12,7 @@ import java.io.InputStream
 import java.io.InputStreamReader
 
 
-class SimpleDataProvider(private val context: Context) : DataProvider {
+class SimpleDataProvider : DataProvider {
 
     override fun execute(request: ApiRequest, listener: DataProviderListener) {
             try {
@@ -30,12 +30,12 @@ class SimpleDataProvider(private val context: Context) : DataProvider {
         } else {
             listener.onFailure(response)
         }
-
     }
 
     @Throws(IOException::class)
     private fun readFile(filePath: String): String {
-        val filePath1: InputStream = this.context.assets.open("$filePath.json")
+        val context = GlobalApplication.appContext!! // todo: null check
+        val filePath1: InputStream = context.assets.open("$filePath.json")
         val output = getString(filePath1)
         filePath1.close()
         return output

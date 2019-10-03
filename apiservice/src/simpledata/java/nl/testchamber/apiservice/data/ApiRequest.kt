@@ -16,7 +16,7 @@ class ApiRequest(val method: Method = Method.GET, val uri: URI, body: Any? = nul
     private var body: String? = null
     private var params: MutableMap<String, String> = HashMap()
     private var headers: MutableMap<String, String> = HashMap()
-    var baseUrl = ""
+    private var baseUrl = ""
     //private val jacksonObjectMapper = com.fasterxml.jackson.databind.ObjectMapper()
 
     init {

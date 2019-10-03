@@ -18,7 +18,7 @@ class HttpApiService : ApiService {
         val apiRequest = ApiRequest(uri = URI("http://www.mocky.io/v2/5d8baaad3500006200d47193"))
         val context = GlobalApplication.appContext
         if (context != null) {
-            SimpleDataProvider(context).execute(apiRequest, object : DataProviderListener {
+            SimpleDataProvider().execute(apiRequest, object : DataProviderListener {
                 override fun onSuccess(response: JsonResponse) {
                     val parsedResponse = parseJsonResponseToList(response, BeverageMenuItem::class.java)
                             ?: emptyList()
@@ -36,9 +36,8 @@ class HttpApiService : ApiService {
 
     override fun getMilkTypes(milkTypeServiceResponseListener: MilkTypeServiceResponseListener) {
         val apiRequest = ApiRequest(uri = URI("http://www.mocky.io/v2/5d88a3f13300002c0ed7da8b"))
-        val context = GlobalApplication.appContext
-        if (context != null) {
-            SimpleDataProvider(context).execute(apiRequest, object : DataProviderListener {
+
+            SimpleDataProvider().execute(apiRequest, object : DataProviderListener {
                 override fun onSuccess(response: JsonResponse) {
                     val parsedResponse = parseJsonResponse(response, MilkTypeService::class.java)
                             ?: MilkTypeService(MilkTypes(emptyList()))
@@ -48,11 +47,7 @@ class HttpApiService : ApiService {
                 override fun onFailure(response: JsonResponse) {
 
                 }
-
             })
-        } else {
-            milkTypeServiceResponseListener.onFailure("")
-        }
     }
 
     private fun <T> parseJsonResponseToList(response: JsonResponse, responseObject: Class<T>): List<T>? {

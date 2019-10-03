@@ -18,6 +18,7 @@ import nl.testchamber.apiservice.interfaces.BrewServiceResponseListener
 import nl.testchamber.mailordercoffeeshop.R
 import nl.testchamber.mailordercoffeeshop.order.OrderViewModel
 import org.jetbrains.anko.support.v4.find
+import org.jetbrains.anko.support.v4.runOnUiThread
 
 
 /**
@@ -71,14 +72,7 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
     private fun initDataset() {
         apiService.getBrews(object : BrewServiceResponseListener {
             override fun onSuccess(response: List<BeverageMenuItem>) {
-                if (!response.isNullOrEmpty()) {
-                    error_view.visibility = View.GONE
-                    with(recyclerview.adapter as MyBeverageRecyclerViewAdapter) {
-                        clear()
-                        addAll(response)
-                        swipeContainer.isRefreshing = false
-                    }
-                }
+                handleCallSucess(response)
             }
 
             override fun onFailure(message: String) {
@@ -93,6 +87,19 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
                 swipeContainer.isRefreshing = false
             }
         })
+    }
+
+    private fun handleCallSucess(response: List<BeverageMenuItem>) {
+        if (!response.isNullOrEmpty()) {
+            runOnUiThread {
+                error_view.visibility = View.GONE
+                with(recyclerview.adapter as MyBeverageRecyclerViewAdapter) {
+                    clear()
+                    addAll(response)
+                    swipeContainer.isRefreshing = false
+                }
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
