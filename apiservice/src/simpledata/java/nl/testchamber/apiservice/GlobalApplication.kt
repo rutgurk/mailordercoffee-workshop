@@ -8,7 +8,7 @@ class GlobalApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        appContext = getApplicationContext()
+        appContext = applicationContext
     }
 
     companion object {

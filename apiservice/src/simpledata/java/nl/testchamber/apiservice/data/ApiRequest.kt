@@ -4,6 +4,8 @@ import java.net.URI
 
 /**
 * Created by rutger on 08/02/2018.
+ *
+ * todo: Implement builder pattern
 */
 
 /**
@@ -16,8 +18,6 @@ class ApiRequest(val method: Method = Method.GET, val uri: URI, body: Any? = nul
     private var body: String? = null
     private var params: MutableMap<String, String> = HashMap()
     private var headers: MutableMap<String, String> = HashMap()
-    private var baseUrl = ""
-    //private val jacksonObjectMapper = com.fasterxml.jackson.databind.ObjectMapper()
 
     init {
         // Defaults
@@ -26,7 +26,6 @@ class ApiRequest(val method: Method = Method.GET, val uri: URI, body: Any? = nul
         // Custom
         if (params != null) setParams(params)
         if (headers != null) setHeaders(headers)
-//        if (body != null) setObjectAsBody(body)
     }
 
     fun getBody(): String? {
@@ -52,18 +51,6 @@ class ApiRequest(val method: Method = Method.GET, val uri: URI, body: Any? = nul
         this.params[key] = value
         return this
     }
-
-//    fun setObjectAsBody(body: Any): ApiRequest {
-//        var bodyObject: String? = null
-//        try {
-//            bodyObject = jacksonObjectMapper.writeValueAsString(body)
-//        } catch (e: IOException) {
-//            e.printStackTrace()
-//        }
-//
-//        this.body = bodyObject
-//        return this
-//    }
 
     fun setStringAsBody(body: String): ApiRequest {
         this.body = body

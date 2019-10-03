@@ -1,7 +1,6 @@
 package nl.testchamber.apiservice
 
-import nl.testchamber.apiservice.data.BeverageMenuItem
-import nl.testchamber.apiservice.data.MilkTypeService
+import nl.testchamber.apiservice.data.*
 import nl.testchamber.apiservice.interfaces.ApiService
 import nl.testchamber.apiservice.interfaces.MilkTypeServiceResponseListener
 import nl.testchamber.apiservice.interfaces.BrewServiceResponseListener
@@ -12,11 +11,10 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-
-class HttpApiService: ApiService {
+class HttpApiService : ApiService {
 
     private val retrofit = Retrofit.Builder()
-            .baseUrl("http://www.mocky.io/v2/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
 
@@ -25,23 +23,43 @@ class HttpApiService: ApiService {
     override fun getBrews(apiServiceResponseListener: BrewServiceResponseListener) {
         apiService.getBrews().enqueue(object : Callback<List<BeverageMenuItem>> {
             override fun onFailure(call: Call<List<BeverageMenuItem>>, t: Throwable) {
-                apiServiceResponseListener.onFailure(t.message!!)
+                val checkedError: String = if (t.message.isNullOrBlank()) {
+                    API_GENERIC_ERROR
+                } else {
+                    t.message!!
+                }
+                apiServiceResponseListener.onFailure(checkedError)
             }
 
             override fun onResponse(call: Call<List<BeverageMenuItem>>, response: Response<List<BeverageMenuItem>>) {
-                apiServiceResponseListener.onSuccess(response.body()!!)
+                val checkedResponse: List<BeverageMenuItem> = if (response.body().isNullOrEmpty()) {
+                    emptyList()
+                } else {
+                    response.body()!!
+                }
+                apiServiceResponseListener.onSuccess(checkedResponse)
             }
         })
     }
 
     override fun getMilkTypes(milkTypeServiceResponseListener: MilkTypeServiceResponseListener) {
         apiService.getMilkTypes().enqueue(object : Callback<MilkTypeService> {
-            override fun onFailure(call: Call<MilkTypeService>, t: Throwable?) {
-                milkTypeServiceResponseListener.onFailure(t?.message!!)
+            override fun onFailure(call: Call<MilkTypeService>, t: Throwable) {
+                val checkedError: String = if (t.message.isNullOrBlank()) {
+                    API_GENERIC_ERROR
+                } else {
+                    t.message!!
+                }
+                milkTypeServiceResponseListener.onFailure(checkedError)
             }
 
             override fun onResponse(call: Call<MilkTypeService>, response: Response<MilkTypeService>?) {
-                milkTypeServiceResponseListener.onSuccess(response?.body()!!)
+                val checkedResponse: MilkTypeService = if (response?.body() == null) {
+                    MilkTypeService(MilkTypes(emptyList()))
+                } else {
+                    response.body()!!
+                }
+                milkTypeServiceResponseListener.onSuccess(checkedResponse)
             }
         })
     }
