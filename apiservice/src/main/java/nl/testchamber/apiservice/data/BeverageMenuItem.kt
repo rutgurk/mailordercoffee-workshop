@@ -9,8 +9,7 @@ data class BeverageMenuItem(val name: String, val volume: Int, val ingredients: 
             parcel.readString(),
             parcel.readInt(),
             parcel.createTypedArrayList(Ingredient),
-            parcel.readString()) {
-    }
+            parcel.readString())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)

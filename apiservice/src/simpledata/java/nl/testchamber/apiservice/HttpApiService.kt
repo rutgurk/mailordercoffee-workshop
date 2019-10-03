@@ -18,7 +18,7 @@ class HttpApiService : ApiService {
         val apiRequest = ApiRequest(uri = URI("http://www.mocky.io/v2/5d8baaad3500006200d47193"))
         val context = GlobalApplication.appContext
         if (context != null) {
-            LocalFileDataProvider(context).execute(apiRequest, object : DataProviderListener {
+            SimpleDataProvider(context).execute(apiRequest, object : DataProviderListener {
                 override fun onSuccess(response: JsonResponse) {
                     val parsedResponse = parseJsonResponseToList(response, BeverageMenuItem::class.java)
                             ?: emptyList()
@@ -28,7 +28,6 @@ class HttpApiService : ApiService {
                 override fun onFailure(response: JsonResponse) {
 
                 }
-
             })
         } else {
             apiServiceResponseListener.onFailure("")
@@ -39,7 +38,7 @@ class HttpApiService : ApiService {
         val apiRequest = ApiRequest(uri = URI("http://www.mocky.io/v2/5d88a3f13300002c0ed7da8b"))
         val context = GlobalApplication.appContext
         if (context != null) {
-            LocalFileDataProvider(context).execute(apiRequest, object : DataProviderListener {
+            SimpleDataProvider(context).execute(apiRequest, object : DataProviderListener {
                 override fun onSuccess(response: JsonResponse) {
                     val parsedResponse = parseJsonResponse(response, MilkTypeService::class.java)
                             ?: MilkTypeService(MilkTypes(emptyList()))
@@ -60,14 +59,12 @@ class HttpApiService : ApiService {
         val moshi = Moshi.Builder().build()
         val type = Types.newParameterizedType(List::class.java, responseObject)
         val jsonAdapter = moshi.adapter<List<T>>(type)
-        var parsedResponse = jsonAdapter.fromJson(response.body)
-        return parsedResponse
+        return jsonAdapter.fromJson(response.body)
     }
 
     private fun <T> parseJsonResponse(response: JsonResponse, responseObject: Class<T>): T? {
         val moshi = Moshi.Builder().build()
         val jsonAdapter:JsonAdapter<T> = moshi.adapter(responseObject)
-        var parsedResponse = jsonAdapter.fromJson(response.body)
-        return parsedResponse
+        return jsonAdapter.fromJson(response.body)
     }
 }

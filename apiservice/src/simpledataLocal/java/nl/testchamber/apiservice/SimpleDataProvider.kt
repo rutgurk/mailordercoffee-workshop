@@ -12,7 +12,7 @@ import java.io.InputStream
 import java.io.InputStreamReader
 
 
-class LocalFileDataProvider(private val context: Context) : DataProvider {
+class SimpleDataProvider(private val context: Context) : DataProvider {
 
     override fun execute(request: ApiRequest, listener: DataProviderListener) {
             try {
@@ -23,7 +23,7 @@ class LocalFileDataProvider(private val context: Context) : DataProvider {
             }
         }
 
-    protected fun buildAndPassResponse(body: String, listener: DataProviderListener, code: Int) {
+    private fun buildAndPassResponse(body: String, listener: DataProviderListener, code: Int) {
         val response = JsonResponse(code, HashMap<String, String>(), body)
         if (code == 200) {
             listener.onSuccess(response)
@@ -34,7 +34,7 @@ class LocalFileDataProvider(private val context: Context) : DataProvider {
     }
 
     @Throws(IOException::class)
-    protected fun readFile(filePath: String): String {
+    private fun readFile(filePath: String): String {
         val filePath1: InputStream = this.context.assets.open("$filePath.json")
         val output = getString(filePath1)
         filePath1.close()
@@ -42,7 +42,7 @@ class LocalFileDataProvider(private val context: Context) : DataProvider {
     }
 
     companion object {
-        private val LOGTAG = LocalFileDataProvider::class.java.simpleName
+        private val LOGTAG = SimpleDataProvider::class.java.simpleName
 
         fun getString(`in`: InputStream?): String {
             val input = BufferedReader(InputStreamReader(`in`))

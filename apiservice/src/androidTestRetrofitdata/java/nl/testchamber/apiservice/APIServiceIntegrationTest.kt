@@ -10,7 +10,6 @@ import nl.testchamber.apiservice.interfaces.BrewServiceResponseListener
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-import retrofit2.Response
 import java.util.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
