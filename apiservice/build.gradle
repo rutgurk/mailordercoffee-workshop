@@ -28,16 +28,33 @@ android {
     testOptions {
         execution 'ANDROIDX_TEST_ORCHESTRATOR'
     }
+    flavorDimensions "providerVersion", "dataType"
 
-    flavorDimensions "version"
     productFlavors {
-        localdata {
-            dimension "version"
-            versionNameSuffix "-localdata"
+        simpledata {
+            dimension "providerVersion"
+            versionNameSuffix "-simpledata"
         }
         retrofitdata {
-            dimension "version"
+            dimension "providerVersion"
             versionNameSuffix "-retrofitdata"
+        }
+        local {
+            dimension "dataType"
+            versionNameSuffix "-local"
+        }
+        remote {
+            dimension "dataType"
+            versionNameSuffix "-remote"
+        }
+    }
+
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        // To check for a certain build type, use variant.buildType.name == "<buildType>"
+        if (names.contains("retrofitdata") && names.contains("local")) {
+            // Gradle ignores any variants that satisfy the conditions above.
+            setIgnore(true)
         }
     }
 }
