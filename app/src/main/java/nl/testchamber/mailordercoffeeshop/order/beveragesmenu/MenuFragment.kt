@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +16,6 @@ import nl.testchamber.apiservice.interfaces.ApiService
 import nl.testchamber.apiservice.interfaces.BrewServiceResponseListener
 import nl.testchamber.mailordercoffeeshop.R
 import nl.testchamber.mailordercoffeeshop.order.OrderViewModel
-import org.jetbrains.anko.support.v4.find
 import org.jetbrains.anko.support.v4.runOnUiThread
 
 
@@ -62,9 +60,12 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
             }
             adapter = MyBeverageRecyclerViewAdapter(beverageMenuContent, listener)
         }
+
+        // todo: replace
         swipeContainer = view.findViewById(R.id.swipe)
         swipeContainer.setOnRefreshListener(this)
         swipeContainer.isRefreshing = true
+        // replace
 
         return view
     }
@@ -72,24 +73,34 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
     private fun initDataset() {
         apiService.getBrews(object : BrewServiceResponseListener {
             override fun onSuccess(response: List<BeverageMenuItem>) {
-                handleCallSucess(response)
+                handleCallSuccess(response)
             }
 
             override fun onFailure(message: String) {
                 if (recyclerview.adapter?.itemCount == 0) {
+
+                    // todo: replace
                     error_view.visibility = View.VISIBLE
+                    // replace
+
                 } else {
                     Toast.makeText(activity?.applicationContext, "Loading of menu failed: $message", Toast.LENGTH_LONG)
                             .apply {
                                 show()
                             }
                 }
+
+                // todo: replace
                 swipeContainer.isRefreshing = false
+                // replace
+
             }
         })
     }
 
-    private fun handleCallSucess(response: List<BeverageMenuItem>) {
+    private fun handleCallSuccess(response: List<BeverageMenuItem>) {
+        // todo: check if this is necessary 'run on ui thread'
+
         if (!response.isNullOrEmpty()) {
             runOnUiThread {
                 error_view.visibility = View.GONE

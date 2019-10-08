@@ -100,6 +100,7 @@ class CustomOrderFragment : androidx.fragment.app.Fragment(), AdapterView.OnItem
             get() {
                 return View.OnClickListener {
                     orderViewModel.addShot()
+
                 }
             }
 

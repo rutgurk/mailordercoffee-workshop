@@ -16,7 +16,7 @@ class OrderViewModel : ViewModel() {
 
     var milkFatPercentage = CustomObservableInt()
 
-    var milkFatPercentageText = ObservableField<String>("Milk fat percentage: 0")
+    var milkFatPercentageText = ObservableField("Milk fat percentage: 0")
 
     val isCustomOrderFragmentActive = ObservableBoolean()
 
@@ -65,6 +65,8 @@ class OrderViewModel : ViewModel() {
         return espressoShotCounter.get()
     }
 
+
+    // todo: cleanup this code and extract responsibilities
     fun getIngredientsList(): List<Ingredient> {
         val ingredients = mutableListOf<Ingredient>()
         var espressoTemperature = ""
