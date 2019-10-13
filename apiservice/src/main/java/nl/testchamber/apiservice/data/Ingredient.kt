@@ -1,4 +1,4 @@
-package nl.testchamber.mailordercoffeeshop.data.beverage
+package nl.testchamber.apiservice.data
 
 import android.os.Parcel
 import android.os.Parcelable

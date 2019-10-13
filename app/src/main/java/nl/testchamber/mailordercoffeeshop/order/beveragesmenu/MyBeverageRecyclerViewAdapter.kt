@@ -1,14 +1,14 @@
 package nl.testchamber.mailordercoffeeshop.order.beveragesmenu
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-
+import androidx.recyclerview.widget.RecyclerView
+import nl.testchamber.apiservice.data.BeverageMenuItem
 import nl.testchamber.mailordercoffeeshop.R
-import nl.testchamber.mailordercoffeeshop.data.beverage.BeverageMenuItem
 import nl.testchamber.mailordercoffeeshop.databinding.FragmentBeverageBinding
+
 
 /**
  * [RecyclerView.Adapter] that can display a [BeverageMenuItem] and makes a call to the
@@ -16,7 +16,7 @@ import nl.testchamber.mailordercoffeeshop.databinding.FragmentBeverageBinding
  *
  */
 class MyBeverageRecyclerViewAdapter(
-        private val beverageMenuItems: List<BeverageMenuItem>,
+        private val beverageMenuItems: MutableList<BeverageMenuItem>,
         private val fragmentListener: MenuFragment.OnListFragmentInteractionListener?)
     : RecyclerView.Adapter<MyBeverageRecyclerViewAdapter.EspressoViewHolder>() {
 
@@ -56,5 +56,17 @@ class MyBeverageRecyclerViewAdapter(
                 executePendingBindings()
             }
         }
+    }
+
+    // Clean all elements of the recycler
+    fun clear() {
+        beverageMenuItems.clear()
+        notifyDataSetChanged()
+    }
+
+    // Add a list of items -- change to type used
+    fun addAll(list: List<BeverageMenuItem>) {
+        beverageMenuItems.addAll(list)
+        notifyDataSetChanged()
     }
 }

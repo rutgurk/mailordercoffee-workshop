@@ -1,7 +1,7 @@
 package nl.testchamber.mailordercoffeeshop.order.beveragesmenu
 
 import androidx.lifecycle.ViewModel
-import nl.testchamber.mailordercoffeeshop.data.beverage.BeverageMenuItem
+import nl.testchamber.apiservice.data.BeverageMenuItem
 
 class MenuViewModel(val beverage: BeverageMenuItem) : ViewModel() {
 

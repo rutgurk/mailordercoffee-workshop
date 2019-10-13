@@ -1,12 +1,12 @@
 package nl.testchamber.mailordercoffeeshop.order
 
-import androidx.lifecycle.ViewModelProviders
 import android.content.Context
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import nl.testchamber.mailordercoffeeshop.R
 
 class HeaderFragment : androidx.fragment.app.Fragment() {
@@ -31,7 +31,7 @@ class HeaderFragment : androidx.fragment.app.Fragment() {
         return mapBinding.root
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnHeaderSelected) {
             headerListeners = context

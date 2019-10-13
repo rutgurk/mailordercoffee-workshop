@@ -1,10 +1,10 @@
 package nl.testchamber.mailordercoffeeshop.order
 
 import androidx.databinding.ObservableBoolean
-import androidx.lifecycle.ViewModel
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
-import nl.testchamber.mailordercoffeeshop.data.beverage.Ingredient
+import androidx.lifecycle.ViewModel
+import nl.testchamber.apiservice.data.Ingredient
 import nl.testchamber.mailordercoffeeshop.data.CustomObservableInt
 import java.util.*
 
@@ -16,19 +16,19 @@ class OrderViewModel : ViewModel() {
 
     var milkFatPercentage = CustomObservableInt()
 
-    var milkFatPercentageText = ObservableField<String>("Milk fat percentage: 0")
+    var milkFatPercentageText = ObservableField("Milk fat percentage: 0")
 
     val isCustomOrderFragmentActive = ObservableBoolean()
 
     val isMenuFragmentActive = ObservableBoolean()
 
-    val milkFatPercentageObserver: Observer = object: Observer {
+    val milkFatPercentageObserver: Observer = object : Observer {
         override fun update(o: Observable?, arg: Any?) {
             milkFatPercentageText.set("Milk fat percentage: ${(arg as Int).toInt()}")
         }
     }
 
-    init{
+    init {
         milkFatPercentage.addObserver(milkFatPercentageObserver)
     }
 
@@ -65,6 +65,8 @@ class OrderViewModel : ViewModel() {
         return espressoShotCounter.get()
     }
 
+
+    // todo: cleanup this code and extract responsibilities
     fun getIngredientsList(): List<Ingredient> {
         val ingredients = mutableListOf<Ingredient>()
         var espressoTemperature = ""
@@ -72,15 +74,15 @@ class OrderViewModel : ViewModel() {
             espressoTemperature = "cold "
         }
         if (getEspressoShotCounter() > 1) {
-            ingredients.add(Ingredient("${getEspressoShotCounter()} shots of ${espressoTemperature}espresso", (getEspressoShotCounter()*30)))
+            ingredients.add(Ingredient("${getEspressoShotCounter()} shots of ${espressoTemperature}espresso", (getEspressoShotCounter() * 30)))
         } else {
             ingredients.add(Ingredient("1 shot of ${espressoTemperature}espresso", 30))
         }
         if (chocolate) ingredients.add(Ingredient("Chocolate", 30))
-        if (isMilkTypeSelected()){
+        if (isMilkTypeSelected()) {
             var milkType = milkType
             if (milkType == "Custom %") {
-                when(milkFatPercentage.getPercentage()) {
+                when (milkFatPercentage.getPercentage()) {
                     in 0..12 -> milkType = "${milkFatPercentage.getPercentage()}% fat milk"
                     in 13..30 -> milkType = "Cottage Cheese"
                     in 31..40 -> milkType = "Cheese"

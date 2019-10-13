@@ -1,15 +1,15 @@
 package nl.testchamber.mailordercoffeeshop.order.customorder
 
 import android.content.Intent
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import nl.testchamber.apiservice.data.BeverageMenuItem
 import nl.testchamber.mailordercoffeeshop.R
-import nl.testchamber.mailordercoffeeshop.data.beverage.BeverageMenuItem
 import nl.testchamber.mailordercoffeeshop.order.OrderViewModel
 import nl.testchamber.mailordercoffeeshop.orderoverview.OrderOverviewActivity
 
@@ -97,25 +97,26 @@ class CustomOrderFragment : androidx.fragment.app.Fragment(), AdapterView.OnItem
             }
 
         val addEspressoShotListener: View.OnClickListener
-        get() {
-            return View.OnClickListener {
-                orderViewModel.addShot()
-            }
-        }
+            get() {
+                return View.OnClickListener {
+                    orderViewModel.addShot()
 
-        val detractEspressoShotListener: View.OnClickListener
-        get() {
-            return View.OnClickListener {
-                if (orderViewModel.getEspressoShotCounter() > 0) {
-                    orderViewModel.detractShot()
-                } else {
-                    Toast.makeText(activity?.applicationContext, "You can't order less than zero espresso shots", Toast.LENGTH_SHORT)
-                            .apply {
-                                show()
-                            }
                 }
             }
-        }
+
+        val detractEspressoShotListener: View.OnClickListener
+            get() {
+                return View.OnClickListener {
+                    if (orderViewModel.getEspressoShotCounter() > 0) {
+                        orderViewModel.detractShot()
+                    } else {
+                        Toast.makeText(activity?.applicationContext, "You can't order less than zero espresso shots", Toast.LENGTH_SHORT)
+                                .apply {
+                                    show()
+                                }
+                    }
+                }
+            }
 
         val seekBarOnChangeListener: SeekBar.OnSeekBarChangeListener
             get() {

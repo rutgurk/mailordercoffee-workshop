@@ -1,12 +1,12 @@
 package nl.testchamber.mailordercoffeeshop.onboarding
 
 import android.os.Bundle
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import nl.testchamber.mailordercoffeeshop.R
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import kotlinx.android.synthetic.main.fragment_onboarding.*
+import nl.testchamber.mailordercoffeeshop.R
 
 class OnboardingFragment : androidx.fragment.app.Fragment() {
 

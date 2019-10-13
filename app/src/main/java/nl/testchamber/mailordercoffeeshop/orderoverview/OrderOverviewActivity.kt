@@ -3,14 +3,13 @@ package nl.testchamber.mailordercoffeeshop.orderoverview
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import nl.testchamber.apiservice.data.BeverageMenuItem
 import nl.testchamber.mailordercoffeeshop.R
 import nl.testchamber.mailordercoffeeshop.data.Order
-import nl.testchamber.mailordercoffeeshop.data.beverage.BeverageMenuItem
 import nl.testchamber.mailordercoffeeshop.databinding.ActivityOrderOverviewBinding
 
 class OrderOverviewActivity : AppCompatActivity() {
@@ -27,7 +26,7 @@ class OrderOverviewActivity : AppCompatActivity() {
 
         binding.viewModel = orderOverviewViewModel
         binding.listeners = Listeners()
-       }
+    }
 
     private fun submitOrder() {
         if (orderOverviewViewModel.isValidOrder()) {

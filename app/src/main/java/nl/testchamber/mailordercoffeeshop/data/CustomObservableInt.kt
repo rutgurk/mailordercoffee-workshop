@@ -2,7 +2,7 @@ package nl.testchamber.mailordercoffeeshop.data
 
 import java.util.*
 
-class CustomObservableInt: Observable() {
+class CustomObservableInt : Observable() {
     private var fatPercentage = 0
 
     fun setPercentage(fatPercentage: Int) {
