@@ -4,6 +4,8 @@ This Repo contains the source code for the 'Mail Order Coffeeshop app'.
 The MailOrder Coffeeshop app was built for Android App test automation practice.
 My blog (https://www.testchamber.nl/guidance/espresso-for-beginners-from-black-to-white-box/) offers free posts and exercises to help you get started with UI Automation using the Espresso framework.
 
+The app currently has three build variants, one of which uses local data (the simpledataLocalDebug build variant). The other two use a remote mock api end point. Be aware that this mock api may not be up and running.
+
 ## Setup
 
 In order to run this app you will need a way to download this project, an IDE, and a Android device or Emulator.
