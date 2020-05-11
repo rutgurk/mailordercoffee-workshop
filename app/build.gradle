@@ -37,6 +37,7 @@ android {
         simpledata {
             dimension "providerVersion"
             versionNameSuffix "-simpledata"
+            isDefault.set(true)
         }
         retrofitdata {
             dimension "providerVersion"
@@ -45,6 +46,7 @@ android {
         local {
             dimension "dataType"
             versionNameSuffix "-local"
+            isDefault.set(true)
         }
         remote {
             dimension "dataType"
