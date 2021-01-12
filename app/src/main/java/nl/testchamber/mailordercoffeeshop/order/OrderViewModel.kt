@@ -61,7 +61,7 @@ class OrderViewModel : ViewModel() {
 
     }
 
-    fun getEspressoShotCounter(): Int {
+    fun retrieveEspressoShotCounter(): Int {
         return espressoShotCounter.get()
     }
 
@@ -73,8 +73,8 @@ class OrderViewModel : ViewModel() {
         if (!hotCoffee) {
             espressoTemperature = "cold "
         }
-        if (getEspressoShotCounter() > 1) {
-            ingredients.add(Ingredient("${getEspressoShotCounter()} shots of ${espressoTemperature}espresso", (getEspressoShotCounter() * 30)))
+        if (espressoShotCounter.get() > 1) {
+            ingredients.add(Ingredient("${espressoShotCounter.get()} shots of ${espressoTemperature}espresso", (espressoShotCounter.get() * 30)))
         } else {
             ingredients.add(Ingredient("1 shot of ${espressoTemperature}espresso", 30))
         }

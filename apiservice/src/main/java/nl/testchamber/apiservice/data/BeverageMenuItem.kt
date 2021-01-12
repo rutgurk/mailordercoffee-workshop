@@ -6,10 +6,10 @@ import com.squareup.moshi.JsonClass
 
 data class BeverageMenuItem(val name: String, val volume: Int, val ingredients: List<Ingredient>, val url: String) : Parcelable {
     constructor(parcel: Parcel) : this(
-            parcel.readString(),
+            parcel.readString()!!,
             parcel.readInt(),
-            parcel.createTypedArrayList(Ingredient),
-            parcel.readString())
+            parcel.createTypedArrayList(Ingredient)!!,
+            parcel.readString()!!)
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)
