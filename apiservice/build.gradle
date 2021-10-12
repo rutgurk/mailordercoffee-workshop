@@ -9,8 +9,6 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         // The following argument makes the Android Test Orchestrator run its
@@ -33,19 +31,15 @@ android {
     productFlavors {
         simpledata {
             dimension "providerVersion"
-            versionNameSuffix "-simpledata"
         }
         retrofitdata {
             dimension "providerVersion"
-            versionNameSuffix "-retrofitdata"
         }
         local {
             dimension "dataType"
-            versionNameSuffix "-local"
         }
         remote {
             dimension "dataType"
-            versionNameSuffix "-remote"
         }
     }
 
