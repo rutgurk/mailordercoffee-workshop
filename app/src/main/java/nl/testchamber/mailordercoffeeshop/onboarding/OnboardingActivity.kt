@@ -8,6 +8,7 @@ import nl.testchamber.mailordercoffeeshop.R
 import nl.testchamber.mailordercoffeeshop.SharedPreferencesUtil
 import nl.testchamber.mailordercoffeeshop.databinding.ActivityOnboardingBinding
 
+// Todo: fix bottom bar and icons
 class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOnboardingBinding
