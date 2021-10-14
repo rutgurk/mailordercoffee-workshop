@@ -48,7 +48,7 @@ class CustomOrderFragment : androidx.fragment.app.Fragment(), AdapterView.OnItem
     private lateinit var orderViewModel: OrderViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        orderViewModel = ViewModelProviders.of(activity!!).get(OrderViewModel::class.java)
+        orderViewModel = ViewModelProviders.of(requireActivity()).get(OrderViewModel::class.java)
         val mapBinding: nl.testchamber.mailordercoffeeshop.databinding.FragmentCustomOrderBinding = DataBindingUtil.inflate<nl.testchamber.mailordercoffeeshop.databinding.FragmentCustomOrderBinding>(inflater, R.layout.fragment_custom_order, container, false).apply {
             viewModel = orderViewModel
             handlers = Handlers()
@@ -67,11 +67,11 @@ class CustomOrderFragment : androidx.fragment.app.Fragment(), AdapterView.OnItem
     }
 
     private fun isValidBeverage(): Boolean {
-        return orderViewModel.getEspressoShotCounter() > 0
+        return orderViewModel.returnEspressoShotCounter() > 0
     }
 
     private fun showOrderErrors() {
-        if (orderViewModel.getEspressoShotCounter() < 1) Toast.makeText(activity?.applicationContext, "A minimum of 1 Espresso shot is required for each order", Toast.LENGTH_LONG)
+        if (orderViewModel.returnEspressoShotCounter() < 1) Toast.makeText(activity?.applicationContext, "A minimum of 1 Espresso shot is required for each order", Toast.LENGTH_LONG)
                 .apply {
                     show()
                 }
@@ -107,7 +107,7 @@ class CustomOrderFragment : androidx.fragment.app.Fragment(), AdapterView.OnItem
         val detractEspressoShotListener: View.OnClickListener
             get() {
                 return View.OnClickListener {
-                    if (orderViewModel.getEspressoShotCounter() > 0) {
+                    if (orderViewModel.returnEspressoShotCounter() > 0) {
                         orderViewModel.detractShot()
                     } else {
                         Toast.makeText(activity?.applicationContext, "You can't order less than zero espresso shots", Toast.LENGTH_SHORT)
@@ -141,7 +141,7 @@ class CustomOrderFragment : androidx.fragment.app.Fragment(), AdapterView.OnItem
         val spinnerAdapter: SpinnerAdapter
             get() {
                 val spinnerArray = arrayOf("No milk", "Soy", "Low fat", "Half & half", "Cream", "Custom %")
-                val spinnerArrayAdapter: ArrayAdapter<String> = object : ArrayAdapter<String>(activity?.applicationContext, R.layout.spinner_item, spinnerArray) {
+                val spinnerArrayAdapter: ArrayAdapter<String> = object : ArrayAdapter<String>(requireContext().applicationContext, R.layout.spinner_item, spinnerArray) {
                     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                         val view = super.getView(position, convertView, parent)
                         view.setPadding(0, view.paddingTop, 0, view.paddingBottom)

@@ -23,7 +23,7 @@ class HeaderFragment : androidx.fragment.app.Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        headerFragmentViewModel = ViewModelProviders.of(activity!!).get(OrderViewModel::class.java)
+        headerFragmentViewModel = ViewModelProviders.of(requireActivity()).get(OrderViewModel::class.java)
         val mapBinding: nl.testchamber.mailordercoffeeshop.databinding.FragmentHeaderBinding = DataBindingUtil.inflate<nl.testchamber.mailordercoffeeshop.databinding.FragmentHeaderBinding>(inflater, R.layout.fragment_header, container, false).apply {
             viewModel = headerFragmentViewModel
             listener = headerListeners

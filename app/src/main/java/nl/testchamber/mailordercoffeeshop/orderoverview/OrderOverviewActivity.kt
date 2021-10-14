@@ -15,7 +15,7 @@ import nl.testchamber.mailordercoffeeshop.databinding.ActivityOrderOverviewBindi
 class OrderOverviewActivity : AppCompatActivity() {
 
     val orderOverviewViewModel: OrderOverviewViewModel by lazy {
-        ViewModelProviders.of(this, OrderOverviewViewModelFactory(intent.getParcelableExtra<BeverageMenuItem>(BeverageMenuItem.PARCEL_NAME))).get(OrderOverviewViewModel::class.java)
+        ViewModelProviders.of(this, OrderOverviewViewModelFactory(intent.getParcelableExtra<BeverageMenuItem>(BeverageMenuItem.PARCEL_NAME)!!)).get(OrderOverviewViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

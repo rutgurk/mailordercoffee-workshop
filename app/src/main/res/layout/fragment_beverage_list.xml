@@ -1,8 +1,19 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<data>
+<variable
+    name="fragment"
+    type="nl.testchamber.mailordercoffeeshop.order.beveragesmenu.MenuFragment" />
+</data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
+
 <TextView
     android:id="@+id/error_view"
     android:layout_width="wrap_content"
@@ -12,9 +23,10 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
+    android:visibility="gone"
     android:textSize="18dp"
     android:text="Uhoh,\nlooks like we couldn't find the menu\nPlease try again later "
-    android:visibility="gone"
+    app:showView="@{fragment.errorViewIsVisible}"
     android:padding="24dp"
     android:translationZ="2dp"
     />
@@ -37,3 +49,4 @@
         tools:listitem="@layout/fragment_beverage" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

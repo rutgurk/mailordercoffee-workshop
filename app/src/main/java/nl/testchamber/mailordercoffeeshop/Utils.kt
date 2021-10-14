@@ -22,11 +22,11 @@ object Utils {
 
     fun isValidEmail(emailAdress: String): Boolean = Patterns.EMAIL_ADDRESS.matcher(emailAdress).matches()
 
-    fun checkInternetConnection(context: Context): Boolean {
-
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-        return (connectivityManager.activeNetworkInfo != null
-                && connectivityManager.activeNetworkInfo.isConnected)
-    }
+//    fun checkInternetConnection(context: Context): Boolean {
+//
+//        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+//
+//        return (connectivityManager.activeNetworkInfo != null
+//                && connectivityManager.activeNetworkInfo.isConnected)
+//    }
 }

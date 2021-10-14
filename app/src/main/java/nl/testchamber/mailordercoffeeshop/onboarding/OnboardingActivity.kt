@@ -4,25 +4,28 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_onboarding.*
 import nl.testchamber.mailordercoffeeshop.R
 import nl.testchamber.mailordercoffeeshop.SharedPreferencesUtil
+import nl.testchamber.mailordercoffeeshop.databinding.ActivityOnboardingBinding
 
 class OnboardingActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityOnboardingBinding
     private var currentPage = 0
     private val fragments = ArrayList<androidx.fragment.app.Fragment>()
     private lateinit var onboardingSlides: List<OnboardingSlide>
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_onboarding)
+        binding = ActivityOnboardingBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         initOnboardingSlidesList()
 
-        view_pager.adapter = populateOnboardingAdapter()
-        circle_page_indicator.setViewPager(view_pager)
-
+        binding.viewPager.adapter = populateOnboardingAdapter()
+//        binding.circlePageIndicator.setViewPager(binding.viewPager)
         setViewPagerBehaviour()
         setNavigationButtonsBehaviour()
 
@@ -37,19 +40,19 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun setNavigationButtonsBehaviour() {
-        go_on_button.setOnClickListener {
+        binding.goOnButton.setOnClickListener {
             if (currentPage == fragments.size - 1) {
                 closeOnboarding()
             } else {
-                view_pager.setCurrentItem(currentPage + 1, true)
+                binding.viewPager.setCurrentItem(currentPage + 1, true)
             }
         }
 
-        close_button.setOnClickListener {
+        binding.closeButton.setOnClickListener {
             closeOnboarding()
         }
 
-        done_button.setOnClickListener { closeOnboarding() }
+        binding.doneButton.setOnClickListener { closeOnboarding() }
     }
 
     private fun closeOnboarding() {
@@ -66,23 +69,23 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun setViewPagerBehaviour() {
-        circle_page_indicator.setOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-            }
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) =
-                    if (position < fragments.lastIndex) {
-                        done_button.visibility = View.GONE
-                        go_on_button.visibility = View.VISIBLE
-                    } else {
-                        go_on_button.visibility = View.GONE
-                        done_button.visibility = View.VISIBLE
-                    }
-
-            override fun onPageSelected(position: Int) {
-                currentPage = position
-            }
-        })
+//        circle_page_indicator.setOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
+//            override fun onPageScrollStateChanged(state: Int) {
+//            }
+//
+//            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) =
+//                    if (position < fragments.lastIndex) {
+//                        done_button.visibility = View.GONE
+//                        go_on_button.visibility = View.VISIBLE
+//                    } else {
+//                        go_on_button.visibility = View.GONE
+//                        done_button.visibility = View.VISIBLE
+//                    }
+//
+//            override fun onPageSelected(position: Int) {
+//                currentPage = position
+//            }
+//        })
     }
 }
 

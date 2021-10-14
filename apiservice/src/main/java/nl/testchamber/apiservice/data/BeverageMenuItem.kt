@@ -4,12 +4,13 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.squareup.moshi.JsonClass
 
+// Todo: get rid of parcelable?
 data class BeverageMenuItem(val name: String, val volume: Int, val ingredients: List<Ingredient>, val url: String) : Parcelable {
     constructor(parcel: Parcel) : this(
-            parcel.readString(),
+            parcel.readString()!!,
             parcel.readInt(),
-            parcel.createTypedArrayList(Ingredient),
-            parcel.readString())
+            parcel.createTypedArrayList(Ingredient)!!,
+            parcel.readString()!!)
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)

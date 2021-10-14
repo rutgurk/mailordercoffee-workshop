@@ -5,10 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import kotlinx.android.synthetic.main.fragment_onboarding.*
-import nl.testchamber.mailordercoffeeshop.R
+import nl.testchamber.mailordercoffeeshop.databinding.FragmentOnboardingBinding
 
 class OnboardingFragment : androidx.fragment.app.Fragment() {
+
+    private var _binding: FragmentOnboardingBinding? = null
+
+    // This property is only valid between onCreateView and
+// onDestroyView.
+    private val binding get() = _binding!!
 
     companion object {
         val NAME = "name"
@@ -28,14 +33,30 @@ class OnboardingFragment : androidx.fragment.app.Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_onboarding, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentOnboardingBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        slide_contents.text = arguments?.getString(NAME, "")
-        onboarding_image.setImageDrawable(getDrawable(onboarding_image.context, arguments?.getInt(DRAWABLE)!!))
+        binding.slideContents.text = arguments?.getString(NAME, "")
+        binding.onboardingImage.setImageDrawable(
+            getDrawable(
+                requireContext(),
+                arguments?.getInt(DRAWABLE)!!
+            )
+        )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
