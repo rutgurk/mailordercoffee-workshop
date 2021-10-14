@@ -8,7 +8,6 @@ import nl.testchamber.mailordercoffeeshop.R
 import nl.testchamber.mailordercoffeeshop.SharedPreferencesUtil
 import nl.testchamber.mailordercoffeeshop.databinding.ActivityOnboardingBinding
 
-// Todo: fix bottom bar and icons
 class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOnboardingBinding
@@ -26,34 +25,43 @@ class OnboardingActivity : AppCompatActivity() {
         initOnboardingSlidesList()
 
         binding.viewPager.adapter = populateOnboardingAdapter()
-//        binding.circlePageIndicator.setViewPager(binding.viewPager)
-        setViewPagerBehaviour()
         setNavigationButtonsBehaviour()
-
-
     }
 
     private fun initOnboardingSlidesList() {
         onboardingSlides = listOf(
-                OnboardingSlide(getString(R.string.onboarding_create_custom_order), R.drawable.onboarding_slide_custom_order),
-                OnboardingSlide(getString(R.string.onboarding_browse_menu), R.drawable.onboarding_slide_recyclerview),
-                OnboardingSlide(getString(R.string.onboarding_order_by_mail), R.drawable.onboarding_slide_orderoverview))
+            OnboardingSlide(
+                getString(R.string.onboarding_create_custom_order),
+                R.drawable.onboarding_slide_custom_order
+            ),
+            OnboardingSlide(
+                getString(R.string.onboarding_browse_menu),
+                R.drawable.onboarding_slide_recyclerview
+            ),
+            OnboardingSlide(
+                getString(R.string.onboarding_order_by_mail),
+                R.drawable.onboarding_slide_orderoverview
+            )
+        )
     }
 
     private fun setNavigationButtonsBehaviour() {
-        binding.goOnButton.setOnClickListener {
-            if (currentPage == fragments.size - 1) {
-                closeOnboarding()
-            } else {
-                binding.viewPager.setCurrentItem(currentPage + 1, true)
-            }
-        }
-
-        binding.closeButton.setOnClickListener {
+        if (currentPage == fragments.size - 1) {
             closeOnboarding()
-        }
+        } else {
+            binding.goOnButton.setOnClickListener {
+                var newPosition = currentPage + 1
+                binding.viewPager.setCurrentItem(newPosition, true)
+                setButtonVisibility(newPosition)
+                updateCurrentPagePosition(newPosition)
+            }
 
-        binding.doneButton.setOnClickListener { closeOnboarding() }
+            binding.closeButton.setOnClickListener {
+                closeOnboarding()
+            }
+
+            binding.doneButton.setOnClickListener { closeOnboarding() }
+        }
     }
 
     private fun closeOnboarding() {
@@ -64,30 +72,31 @@ class OnboardingActivity : AppCompatActivity() {
 
     private fun populateOnboardingAdapter(): OnboardingViewPagerAdapter {
         val adapter = OnboardingViewPagerAdapter(supportFragmentManager)
-        onboardingSlides.forEach { fragments.add(OnboardingFragment.newInstance(it.title, it.drawable)) }
+        onboardingSlides.forEach {
+            fragments.add(
+                OnboardingFragment.newInstance(
+                    it.title,
+                    it.drawable
+                )
+            )
+        }
         adapter.addFragments(fragments)
         return adapter
     }
 
-    private fun setViewPagerBehaviour() {
-//        circle_page_indicator.setOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
-//            override fun onPageScrollStateChanged(state: Int) {
-//            }
-//
-//            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) =
-//                    if (position < fragments.lastIndex) {
-//                        done_button.visibility = View.GONE
-//                        go_on_button.visibility = View.VISIBLE
-//                    } else {
-//                        go_on_button.visibility = View.GONE
-//                        done_button.visibility = View.VISIBLE
-//                    }
-//
-//            override fun onPageSelected(position: Int) {
-//                currentPage = position
-//            }
-//        })
+        fun setButtonVisibility(position: Int) {
+            if (position < fragments.lastIndex) {
+                binding.doneButton.visibility = View.GONE
+                binding.goOnButton.visibility = View.VISIBLE
+            } else {
+                binding.goOnButton.visibility = View.GONE
+                binding.doneButton.visibility = View.VISIBLE
+            }
+        }
+
+           fun updateCurrentPagePosition(position: Int) {
+                currentPage = position
+            }
     }
-}
 
 data class OnboardingSlide(val title: String, val drawable: Int)
