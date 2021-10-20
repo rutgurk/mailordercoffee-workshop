@@ -16,9 +16,7 @@ android {
         // "pm clear" command after each test invocation. This command ensures
         // that the app's state is completely cleared between tests.
         testInstrumentationRunnerArguments clearPackageData: 'true'
-        dataBinding {
-            enabled = true
-        }
+
     }
     buildFeatures {
         dataBinding true
@@ -75,7 +73,7 @@ dependencies {
     implementation project(':apiservice')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation "androidx.media:media:1.4.2"
+    implementation "androidx.media:media:1.4.3"
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

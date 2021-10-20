@@ -1,4 +1,4 @@
-package nl.testchamber.mailordercoffeeshop;
+package nl.testchamber.mailordercoffeeshop.tests;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
@@ -26,6 +27,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.AllOf.allOf;
+
+import nl.testchamber.mailordercoffeeshop.MainActivity;
+import nl.testchamber.mailordercoffeeshop.R;
 
 public class EspressoWorkshopTest {
 
@@ -53,7 +57,7 @@ public class EspressoWorkshopTest {
     @Test
     public void orderOverViewShouldDisplayIngredients() {
         onView(withText("+")).perform(click(), click());
-        onView(withId(R.id.chocolate)).perform(click());
+        onView(ViewMatchers.withId(R.id.chocolate)).perform(click());
         onView(withText(R.string.review_order_button)).perform(click());
         onView(withId(R.id.beverage_detail_ingredients)).check(matches(withText("Ingredients:\n2 shots of espresso\nChocolate")));
     }

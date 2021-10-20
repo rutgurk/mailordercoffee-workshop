@@ -16,8 +16,8 @@ class OnboardingFragment : androidx.fragment.app.Fragment() {
     private val binding get() = _binding!!
 
     companion object {
-        val NAME = "name"
-        val DRAWABLE = "drawable"
+        private const val NAME = "name"
+        private const val DRAWABLE = "drawable"
 
         /**
          * @param name a string to be displayed on the fragment
