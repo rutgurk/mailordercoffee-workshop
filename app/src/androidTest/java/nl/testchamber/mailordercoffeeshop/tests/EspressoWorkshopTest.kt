@@ -12,33 +12,39 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.recyclerview.widget.RecyclerView
 import android.content.Intent
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.matcher.IntentMatchers
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.platform.app.InstrumentationRegistry
+import nl.testchamber.mailordercoffeeshop.SharedPreferencesUtil
 import org.hamcrest.CoreMatchers
 import org.hamcrest.core.AllOf
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
 class EspressoWorkshopTest {
+    lateinit var scenario: ActivityScenario<MainActivity>
 
-    @get:Rule
-    var activityTestRule: IntentsTestRule<MainActivity> = object : IntentsTestRule<MainActivity>(
-        MainActivity::class.java
-    ) {
-        public override fun beforeActivityLaunched() {
-            super.beforeActivityLaunched()
-            val context = InstrumentationRegistry.getInstrumentation().targetContext
+    @Before
+    fun setUp() {
+        SharedPreferencesUtil.setIsFirstLaunchToFalse(InstrumentationRegistry.getInstrumentation().targetContext)
+        Intents.init()
+        // Solution one
+//            val editor =
+//                context.getSharedPreferences(context.packageName, Activity.MODE_PRIVATE).edit()
+//            editor.putBoolean("is_first_launch", false)
+//            editor.commit()
 
-            // Solution one
-            val editor =
-                context.getSharedPreferences(context.packageName, Activity.MODE_PRIVATE).edit()
-            editor.putBoolean("is_first_launch", false)
-            editor.commit()
+         scenario = ActivityScenario.launch(MainActivity::class.java)
+    }
 
-            // Alternate Solution: Using the code from the app itself
-//            SharedPreferencesUtil.INSTANCE.setIsFirstLaunchToFalse(context);
-        }
+    @After
+    fun tearDown() {
+        Intents.release()
+        scenario.close()
     }
 
     // For the 'Plus button' I used a hardcoded string. But if a developer has added the text
@@ -53,6 +59,8 @@ class EspressoWorkshopTest {
             .perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.beverage_detail_ingredients))
             .check(ViewAssertions.matches(ViewMatchers.withText("Ingredients:\n2 shots of espresso\nChocolate")))
+
+        scenario.close()
     }
 
     @Test
