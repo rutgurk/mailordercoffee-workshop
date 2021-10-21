@@ -1,5 +1,6 @@
 package nl.testchamber.mailordercoffeeshop.tests
 
+import android.os.Bundle
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -17,11 +18,11 @@ class OnboardingFragmentTest {
 
     @Test
     fun onboardingTest() {
-        launchFragmentInContainer {
-            OnboardingFragment.newInstance("Testname", R.drawable.onboarding_slide_custom_order)
-        }
+        val bundle = Bundle()
+        bundle.putString(OnboardingFragment.NAME, "Testname")
+        bundle.putInt(OnboardingFragment.DRAWABLE, R.drawable.onboarding_slide_custom_order)
+        launchFragmentInContainer<OnboardingFragment>(bundle)
 
-        onView(withId(R.id.slide_contents)).perform(click())
         onView(withId(R.id.slide_contents)).check(matches(withText("Testname")))
     }
 }

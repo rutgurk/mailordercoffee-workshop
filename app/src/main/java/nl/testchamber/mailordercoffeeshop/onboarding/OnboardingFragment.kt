@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import nl.testchamber.mailordercoffeeshop.R
 import nl.testchamber.mailordercoffeeshop.databinding.FragmentOnboardingBinding
 
 class OnboardingFragment : androidx.fragment.app.Fragment() {
@@ -16,8 +17,8 @@ class OnboardingFragment : androidx.fragment.app.Fragment() {
     private val binding get() = _binding!!
 
     companion object {
-        private const val NAME = "name"
-        private const val DRAWABLE = "drawable"
+        const val NAME = "name"
+        const val DRAWABLE = "drawable"
 
         /**
          * @param name a string to be displayed on the fragment
@@ -48,11 +49,7 @@ class OnboardingFragment : androidx.fragment.app.Fragment() {
 
         binding.slideContents.text = arguments?.getString(NAME, "")
         binding.onboardingImage.setImageDrawable(
-            getDrawable(
-                requireContext(),
-                arguments?.getInt(DRAWABLE)!!
-            )
-        )
+            getDrawable(requireContext(), requireArguments().getInt(DRAWABLE)))
     }
 
     override fun onDestroyView() {
