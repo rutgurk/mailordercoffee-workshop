@@ -7,7 +7,7 @@ android {
     buildToolsVersion '30.0.3'
     defaultConfig {
         applicationId "nl.testchamber.mailordercoffeeshop"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 31
         versionCode 1
         versionName "1.0"
@@ -16,7 +16,6 @@ android {
         // "pm clear" command after each test invocation. This command ensures
         // that the app's state is completely cleared between tests.
         testInstrumentationRunnerArguments clearPackageData: 'true'
-
     }
     buildFeatures {
         dataBinding true
@@ -64,10 +63,7 @@ android {
             setIgnore(true)
         }
     }
-
-
 }
-
 
 dependencies {
     implementation project(':apiservice')
@@ -83,14 +79,34 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:1.1.1"
     implementation "android.arch.lifecycle:viewmodel:1.1.1"
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    debugImplementation ("androidx.fragment:fragment-testing:$fragment_version") {
+        exclude group: "androidx.test", module : "core"}
     testImplementation 'junit:junit:4.13.2'
+
+    // Core library
+    androidTestImplementation 'androidx.test:core:1.4.0'
+
+    // AndroidJUnitRunner and JUnit Rules
+    androidTestImplementation 'androidx.test:runner:1.4.1-alpha03'
     androidTestImplementation 'androidx.test:rules:1.4.1-alpha03'
+
+    // Assertions
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.ext:truth:1.4.0'
+    androidTestImplementation 'com.google.truth:truth:1.0.1'
+
+    // Espresso dependencies
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation 'androidx.test:runner:1.4.0'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.4.0'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.4.0'
-    androidTestUtil 'androidx.test:orchestrator:1.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-web:3.4.0'
+    androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.4.0'
+
+    androidTestImplementation 'androidx.test.espresso:espresso-idling-resource:3.4.0'
+    androidTestUtil 'androidx.test:orchestrator:1.4.1-alpha03'
 }
 repositories {
     mavenCentral()
+    google()
 }
