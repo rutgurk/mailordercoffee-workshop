@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import nl.testchamber.apiservice.data.BeverageMenuItem
 import nl.testchamber.mailordercoffeeshop.R
 import nl.testchamber.mailordercoffeeshop.order.OrderViewModel
@@ -47,8 +47,8 @@ class CustomOrderFragment : androidx.fragment.app.Fragment(), AdapterView.OnItem
 
     private lateinit var orderViewModel: OrderViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        orderViewModel = ViewModelProviders.of(requireActivity()).get(OrderViewModel::class.java)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        orderViewModel = ViewModelProvider(requireActivity()).get(OrderViewModel::class.java)
         val mapBinding: nl.testchamber.mailordercoffeeshop.databinding.FragmentCustomOrderBinding = DataBindingUtil.inflate<nl.testchamber.mailordercoffeeshop.databinding.FragmentCustomOrderBinding>(inflater, R.layout.fragment_custom_order, container, false).apply {
             viewModel = orderViewModel
             handlers = Handlers()

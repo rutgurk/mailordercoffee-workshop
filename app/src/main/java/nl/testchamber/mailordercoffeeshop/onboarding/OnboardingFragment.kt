@@ -13,7 +13,7 @@ class OnboardingFragment : androidx.fragment.app.Fragment() {
     private var _binding: FragmentOnboardingBinding? = null
 
     // This property is only valid between onCreateView and
-// onDestroyView.
+    // onDestroyView.
     private val binding get() = _binding!!
 
     companion object {
@@ -38,7 +38,7 @@ class OnboardingFragment : androidx.fragment.app.Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentOnboardingBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
@@ -49,7 +49,8 @@ class OnboardingFragment : androidx.fragment.app.Fragment() {
 
         binding.slideContents.text = arguments?.getString(NAME, "")
         binding.onboardingImage.setImageDrawable(
-            getDrawable(requireContext(), requireArguments().getInt(DRAWABLE)))
+            getDrawable(requireContext(), requireArguments().getInt(DRAWABLE))
+        )
     }
 
     override fun onDestroyView() {

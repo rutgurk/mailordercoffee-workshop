@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import nl.testchamber.apiservice.HttpApiService
@@ -47,7 +47,7 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        viewModel = ViewModelProviders.of(requireActivity()).get(OrderViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(OrderViewModel::class.java)
         val view = inflater.inflate(R.layout.fragment_beverage_list, container, false)
 
         // Set the myBeverageRecyclerViewAdapter
@@ -60,7 +60,7 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
             adapter = MyBeverageRecyclerViewAdapter(beverageMenuContent, listener)
         }
 
-        // todo: replace
+        // todo: replace with binding? -> research when to use viewbinding vs databinding
         swipeContainer = view.findViewById(R.id.swipe)
         swipeContainer.setOnRefreshListener(this)
         swipeContainer.isRefreshing = true
@@ -98,18 +98,13 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
     }
 
     private fun handleCallSuccess(response: List<BeverageMenuItem>) {
-        // todo: check if this is necessary 'run on ui thread'
-
         if (!response.isNullOrEmpty()) {
-//            runOnUiThread {
                 errorViewIsVisible = false
-//                error_view.visibility = View.GONE
                 with(recyclerview.adapter as MyBeverageRecyclerViewAdapter) {
                     clear()
                     addAll(response)
                     swipeContainer.isRefreshing = false
                 }
-//            }
         }
     }
 
