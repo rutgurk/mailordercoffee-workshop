@@ -59,8 +59,6 @@ class EspressoWorkshopTest {
             .perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.beverage_detail_ingredients))
             .check(ViewAssertions.matches(ViewMatchers.withText("Ingredients:\n2 shots of espresso\nChocolate")))
-
-        scenario.close()
     }
 
     @Test
