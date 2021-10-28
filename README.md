@@ -78,3 +78,10 @@ In general, this works*: 
 Source: https://developer.android.com/studio/debug/dev-options
 
 
+### Wish list / to do
+
+Refactor of ViewModelProviders
+Databinding vs Viewbinding
+Data injection with Hilt
+Write more tests + Page Object Model
+Karumi screenshot tests

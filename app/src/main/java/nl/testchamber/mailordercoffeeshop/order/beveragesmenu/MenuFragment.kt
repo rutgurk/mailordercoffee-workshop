@@ -6,17 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import kotlinx.android.synthetic.main.fragment_beverage_list.*
 import nl.testchamber.apiservice.HttpApiService
 import nl.testchamber.apiservice.data.BeverageMenuItem
 import nl.testchamber.apiservice.interfaces.ApiService
 import nl.testchamber.apiservice.interfaces.BrewServiceResponseListener
 import nl.testchamber.mailordercoffeeshop.R
 import nl.testchamber.mailordercoffeeshop.order.OrderViewModel
-import org.jetbrains.anko.support.v4.runOnUiThread
 
 
 /**
@@ -35,6 +33,7 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
     private var beverageMenuContent = mutableListOf<BeverageMenuItem>()
     private var listener: OnListFragmentInteractionListener? = null
     private lateinit var apiService: ApiService
+    var errorViewIsVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +47,7 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        viewModel = ViewModelProviders.of(activity!!).get(OrderViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(OrderViewModel::class.java)
         val view = inflater.inflate(R.layout.fragment_beverage_list, container, false)
 
         // Set the myBeverageRecyclerViewAdapter
@@ -61,7 +60,7 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
             adapter = MyBeverageRecyclerViewAdapter(beverageMenuContent, listener)
         }
 
-        // todo: replace
+        // todo: replace with binding?
         swipeContainer = view.findViewById(R.id.swipe)
         swipeContainer.setOnRefreshListener(this)
         swipeContainer.isRefreshing = true
@@ -78,11 +77,7 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
 
             override fun onFailure(message: String) {
                 if (recyclerview.adapter?.itemCount == 0) {
-
-                    // todo: replace
-                    error_view.visibility = View.VISIBLE
-                    // replace
-
+                    errorViewIsVisible = true
                 } else {
                     Toast.makeText(activity?.applicationContext, "Loading of menu failed: $message", Toast.LENGTH_LONG)
                             .apply {
@@ -99,17 +94,13 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
     }
 
     private fun handleCallSuccess(response: List<BeverageMenuItem>) {
-        // todo: check if this is necessary 'run on ui thread'
-
         if (!response.isNullOrEmpty()) {
-            runOnUiThread {
-                error_view.visibility = View.GONE
+                errorViewIsVisible = false
                 with(recyclerview.adapter as MyBeverageRecyclerViewAdapter) {
                     clear()
                     addAll(response)
                     swipeContainer.isRefreshing = false
                 }
-            }
         }
     }
 

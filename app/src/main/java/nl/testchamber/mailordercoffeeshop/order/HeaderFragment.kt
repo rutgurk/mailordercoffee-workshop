@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import nl.testchamber.mailordercoffeeshop.R
 
 class HeaderFragment : androidx.fragment.app.Fragment() {
@@ -22,8 +22,8 @@ class HeaderFragment : androidx.fragment.app.Fragment() {
     private lateinit var headerListeners: OnHeaderSelected
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        headerFragmentViewModel = ViewModelProviders.of(activity!!).get(OrderViewModel::class.java)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        headerFragmentViewModel = ViewModelProvider(requireActivity()).get(OrderViewModel::class.java)
         val mapBinding: nl.testchamber.mailordercoffeeshop.databinding.FragmentHeaderBinding = DataBindingUtil.inflate<nl.testchamber.mailordercoffeeshop.databinding.FragmentHeaderBinding>(inflater, R.layout.fragment_header, container, false).apply {
             viewModel = headerFragmentViewModel
             listener = headerListeners

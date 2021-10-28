@@ -74,10 +74,10 @@
                             android:text="+"
                             android:textAlignment="gravity"
                             android:textStyle="bold"
+                            app:layout_constraintBottom_toTopOf="@+id/less_espresso"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toTopOf="@+id/less_espresso"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <Button
                             android:id="@+id/less_espresso"
@@ -91,9 +91,9 @@
                             android:text="-"
                             android:textAlignment="gravity"
                             android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent" />
+                            app:layout_constraintStart_toStartOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
@@ -101,11 +101,11 @@
                         style="@style/textViewStyling"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintHorizontal_bias="0.2"
-                        app:layout_constraintRight_toLeftOf="@id/espresso_shot_button_container"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_bias="0.2"
                         app:layout_constraintLeft_toRightOf="@+id/espresso_shot_text"
-                       app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/espresso_shot_button_container"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:shotCounter="@{viewModel.espressoShotCounter}"
                         tools:text="42" />
 
@@ -273,11 +273,11 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
-                android:contentDescription="@string/review_order_button_content_description"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
+                android:contentDescription="@string/review_order_button_content_description"
                 android:onClick="@{handlers.reviewOrderListener}"
                 android:text="@string/review_order_button"
                 app:layout_constraintBottom_toBottomOf="parent"

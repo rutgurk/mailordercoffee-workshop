@@ -15,7 +15,7 @@ import nl.testchamber.mailordercoffeeshop.databinding.ActivityOrderOverviewBindi
 class OrderOverviewActivity : AppCompatActivity() {
 
     val orderOverviewViewModel: OrderOverviewViewModel by lazy {
-        ViewModelProviders.of(this, OrderOverviewViewModelFactory(intent.getParcelableExtra<BeverageMenuItem>(BeverageMenuItem.PARCEL_NAME))).get(OrderOverviewViewModel::class.java)
+        ViewModelProviders.of(this, OrderOverviewViewModelFactory(intent.getParcelableExtra<BeverageMenuItem>(BeverageMenuItem.PARCEL_NAME)!!)).get(OrderOverviewViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,13 +40,13 @@ class OrderOverviewActivity : AppCompatActivity() {
 
     private fun showOrderErrors() {
         if (!orderOverviewViewModel.hasValidEmail()) {
-            orderOverviewViewModel.emailInputError?.set(getString(R.string.email_invalid_error))
+            orderOverviewViewModel.emailInputError.set(getString(R.string.email_invalid_error))
         }
         if (orderOverviewViewModel.getCustomerName().isBlank()) {
-            orderOverviewViewModel.customerNameInputError?.set(getString(R.string.customer_name_error))
+            orderOverviewViewModel.customerNameInputError.set(getString(R.string.customer_name_error))
         }
         if (orderOverviewViewModel.getCustomOrderName().isBlank()) {
-            orderOverviewViewModel.customOrderNameInputError?.set(getString(R.string.order_name_error))
+            orderOverviewViewModel.customOrderNameInputError.set(getString(R.string.order_name_error))
         }
     }
 
