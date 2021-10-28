@@ -60,7 +60,7 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
             adapter = MyBeverageRecyclerViewAdapter(beverageMenuContent, listener)
         }
 
-        // todo: replace with binding? -> research when to use viewbinding vs databinding
+        // todo: replace with binding?
         swipeContainer = view.findViewById(R.id.swipe)
         swipeContainer.setOnRefreshListener(this)
         swipeContainer.isRefreshing = true
@@ -78,10 +78,6 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
             override fun onFailure(message: String) {
                 if (recyclerview.adapter?.itemCount == 0) {
                     errorViewIsVisible = true
-                    // todo: replace
-//                    error_view.visibility = View.VISIBLE
-                    // replace
-
                 } else {
                     Toast.makeText(activity?.applicationContext, "Loading of menu failed: $message", Toast.LENGTH_LONG)
                             .apply {

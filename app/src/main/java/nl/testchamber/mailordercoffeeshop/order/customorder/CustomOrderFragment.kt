@@ -14,6 +14,28 @@ import nl.testchamber.mailordercoffeeshop.order.OrderViewModel
 import nl.testchamber.mailordercoffeeshop.orderoverview.OrderOverviewActivity
 
 class CustomOrderFragment : androidx.fragment.app.Fragment(), AdapterView.OnItemSelectedListener {
+
+    private lateinit var orderViewModel: OrderViewModel
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        orderViewModel = ViewModelProvider(requireActivity()).get(OrderViewModel::class.java)
+        val mapBinding: nl.testchamber.mailordercoffeeshop.databinding.FragmentCustomOrderBinding = DataBindingUtil.inflate<nl.testchamber.mailordercoffeeshop.databinding.FragmentCustomOrderBinding>(inflater, R.layout.fragment_custom_order, container, false).apply {
+            viewModel = orderViewModel
+            handlers = Handlers()
+        }
+        return mapBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        orderViewModel.isCustomOrderFragmentActive.set(true)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        orderViewModel.isCustomOrderFragmentActive.set(false)
+    }
+
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         if (parent != null) {
             orderViewModel.milkType = parent.getItemAtPosition(position) as String
@@ -43,27 +65,6 @@ class CustomOrderFragment : androidx.fragment.app.Fragment(), AdapterView.OnItem
         }
 
         val FRAGMENT_TAG = "FRAGMENT_TAG:${CustomOrderFragment::class.java.simpleName}"
-    }
-
-    private lateinit var orderViewModel: OrderViewModel
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        orderViewModel = ViewModelProvider(requireActivity()).get(OrderViewModel::class.java)
-        val mapBinding: nl.testchamber.mailordercoffeeshop.databinding.FragmentCustomOrderBinding = DataBindingUtil.inflate<nl.testchamber.mailordercoffeeshop.databinding.FragmentCustomOrderBinding>(inflater, R.layout.fragment_custom_order, container, false).apply {
-            viewModel = orderViewModel
-            handlers = Handlers()
-        }
-        return mapBinding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        orderViewModel.isCustomOrderFragmentActive.set(true)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        orderViewModel.isCustomOrderFragmentActive.set(false)
     }
 
     private fun isValidBeverage(): Boolean {
