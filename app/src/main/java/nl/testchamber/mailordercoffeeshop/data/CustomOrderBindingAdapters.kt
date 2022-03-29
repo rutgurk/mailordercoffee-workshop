@@ -14,9 +14,9 @@ fun bindShotCounter(textView: TextView, number: Int) {
 @BindingAdapter("showView")
 fun bindShowView(view: View, showView: Boolean) {
     view.visibility = if (showView) {
-        View.VISIBLE
-    } else {
         View.GONE
+    } else {
+        View.VISIBLE
     }
 }
 

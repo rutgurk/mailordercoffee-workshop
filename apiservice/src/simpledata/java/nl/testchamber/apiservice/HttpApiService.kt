@@ -12,7 +12,7 @@ import java.net.URI
 class HttpApiService : ApiService {
 
     override fun getBrews(apiServiceResponseListener: BrewServiceResponseListener) {
-        val apiRequest = ApiRequest(uri = URI("${BASE_URL}5d8baaad3500006200d47193"))
+        val apiRequest = ApiRequest(uri = URI("${BASE_URL}7f739bb5-9a2d-425c-89d0-cfac46ab145c")) //https://run.mocky.io/v3/7f739bb5-9a2d-425c-89d0-cfac46ab145c
             SimpleDataProvider().execute(apiRequest, object : DataProviderListener {
                 override fun onSuccess(response: JsonResponse) {
                     val parsedResponse = parseJsonResponseToList(response, BeverageMenuItem::class.java)

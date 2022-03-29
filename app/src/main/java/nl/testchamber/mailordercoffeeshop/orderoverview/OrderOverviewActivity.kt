@@ -59,9 +59,9 @@ class OrderOverviewActivity : AppCompatActivity() {
             putExtra(Intent.EXTRA_SUBJECT, "Order: ${order.customerName} - ${order.orderName}")
             putExtra(Intent.EXTRA_TEXT, order.ingredients.joinToString("\n", prefix = "Ingredients:\n") { it.ingredientName })
         }
-        if (intent.resolveActivity(this.packageManager) != null) {
+        //if (intent.resolveActivity(this.packageManager) != null) {
             startActivity(intent)
-        }
+        //}
     }
 
     inner class Listeners {

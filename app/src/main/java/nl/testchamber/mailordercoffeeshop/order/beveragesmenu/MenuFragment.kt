@@ -34,6 +34,7 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
     private var listener: OnListFragmentInteractionListener? = null
     private lateinit var apiService: ApiService
     var errorViewIsVisible = false
+    private var responseData: List<BeverageMenuItem>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,35 +73,39 @@ class MenuFragment : androidx.fragment.app.Fragment(), SwipeRefreshLayout.OnRefr
     private fun initDataset() {
         apiService.getBrews(object : BrewServiceResponseListener {
             override fun onSuccess(response: List<BeverageMenuItem>) {
-                handleCallSuccess(response)
+                responseData = response//handleCallSuccess(response)
             }
 
             override fun onFailure(message: String) {
-                if (recyclerview.adapter?.itemCount == 0) {
-                    errorViewIsVisible = true
-                } else {
-                    Toast.makeText(activity?.applicationContext, "Loading of menu failed: $message", Toast.LENGTH_LONG)
-                            .apply {
-                                show()
-                            }
-                }
-
-                // todo: replace
-                swipeContainer.isRefreshing = false
-                // replace
-
+                responseData = emptyList()
             }
         })
+
+            handleCallSuccess()
+     //   swipeContainer.isRefreshing = false
     }
 
-    private fun handleCallSuccess(response: List<BeverageMenuItem>) {
-        if (!response.isNullOrEmpty()) {
+    private fun handleCallSuccess(){ //response: List<BeverageMenuItem>) {
+        if (!responseData.isNullOrEmpty()) {
                 errorViewIsVisible = false
                 with(recyclerview.adapter as MyBeverageRecyclerViewAdapter) {
                     clear()
-                    addAll(response)
+                    addAll(responseData!!)
                     swipeContainer.isRefreshing = false
                 }
+        } else {
+            if (recyclerview.adapter?.itemCount == 0) {
+                errorViewIsVisible = true
+            } else {
+                Toast.makeText(activity?.applicationContext, "Loading of menu failed: ", Toast.LENGTH_LONG)
+                    .apply {
+                        show()
+                    }
+            }
+
+            // todo: replace
+            swipeContainer.isRefreshing = false
+            // replace
         }
     }
 

@@ -1,28 +1,24 @@
 package nl.testchamber.mailordercoffeeshop.tests
 
-import androidx.test.espresso.intent.rule.IntentsTestRule
-import nl.testchamber.mailordercoffeeshop.MainActivity
-import android.content.SharedPreferences
-import android.app.Activity
+import android.content.Intent
+import androidx.recyclerview.widget.RecyclerView
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.action.ViewActions
-import nl.testchamber.mailordercoffeeshop.R
+import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.recyclerview.widget.RecyclerView
-import android.content.Intent
-import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.matcher.IntentMatchers
-import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.platform.app.InstrumentationRegistry
+import nl.testchamber.mailordercoffeeshop.MainActivity
+import nl.testchamber.mailordercoffeeshop.R
 import nl.testchamber.mailordercoffeeshop.SharedPreferencesUtil
 import org.hamcrest.CoreMatchers
 import org.hamcrest.core.AllOf
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 class EspressoWorkshopTest {
@@ -47,6 +43,8 @@ class EspressoWorkshopTest {
         scenario.close()
     }
 
+
+
     // For the 'Plus button' I used a hardcoded string. But if a developer has added the text
     // to the Android resources, then it's also available using R.string.*
     // but it's still possible to use "Review order" instead of R.string.review_order_button
@@ -56,7 +54,7 @@ class EspressoWorkshopTest {
             .perform(ViewActions.click(), ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.chocolate)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withText(R.string.review_order_button))
-            .perform(ViewActions.click())
+            .perform(scrollTo(), ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.beverage_detail_ingredients))
             .check(ViewAssertions.matches(ViewMatchers.withText("Ingredients:\n2 shots of espresso\nChocolate")))
     }
@@ -82,7 +80,7 @@ class EspressoWorkshopTest {
             .perform(ViewActions.click(), ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.chocolate)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withText(R.string.review_order_button))
-            .perform(ViewActions.click())
+            .perform(scrollTo(), ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.name_text_box))
             .perform(ViewActions.scrollTo(), ViewActions.typeText("My name"))
         Espresso.onView(ViewMatchers.withId(R.id.custom_order_name_box))

@@ -48,6 +48,8 @@ class OrderViewModel : ViewModel() {
 
     var scaldedMilk = false
 
+    var isRefreshing = false
+
     fun addShot() {
         espressoShotCounter.set(espressoShotCounter.get() + 1)
     }
